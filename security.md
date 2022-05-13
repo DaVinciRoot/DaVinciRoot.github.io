@@ -4,7 +4,7 @@ title: "Security"
 ---
 
 {% if site.show_excerpts %}
-  {% include home.html %}
+  {% include security.md %}
 {% else %}
   {% include archive.html title="Posts" %}
 {% endif %}
