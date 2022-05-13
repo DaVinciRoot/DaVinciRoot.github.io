@@ -1,6 +1,5 @@
 ---
 title: "Active HTB WriteUp"
-permalink:   /security/
 layout: post
 ---
 
