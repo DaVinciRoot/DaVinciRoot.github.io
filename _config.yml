@@ -16,8 +16,9 @@ minimal: false             # use a dark header
 # Menu
 
 navigation:                # accepts {file, title, url, icon, sidebaricon}
+  - {file: "index.html", title: "Home"}
   - {file: "security.html", title: "Security"}
-  - {file: "index.html", title: "Networking"}
+  - {file: "networking.html", title: "Networking"}
   - {file: "README.md",  title: "About me", icon: address-card}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
