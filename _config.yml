@@ -1,6 +1,6 @@
-title: "Blog Title"
-author: "Blog Author"
-description: "Made with <b style=\"color: #f45;\">&lt;3</b>"
+title: "DaVinci>Root"
+author: "Loduynht Buret M."
+description: "From the Shell to Real Life <b style=\"color: #f45;\">&lt;3</b>"
 permalink: /:title/
 lang: "en"
 excerpt_separator: "\n\n\n"
@@ -20,9 +20,10 @@ navigation:                # accepts {file, title, url, icon, sidebaricon}
   - {file: "README.md"}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
-  - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
-  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
-  - {title: Subscribe, icon: rss, url: "/feed.xml"}
+  - {title: Mail, icon: envelope, url: "mailto:buretmarcano@gmail.com"}
+  - {title: Github, icon: github, url: "https://davinciroot.github.io"}
+  - {title: Twitter, icon: twitter, url: "https://twitter.com/l_buretm"}
+  - {title: Subscribe, icon: youtube, url: "https://www.youtube.com/channel/UCzh3ato79yNKR9nvoV16EMA"}
 
 comments:
 #  disqus_shortname: ""    # see https://disqus.com/
