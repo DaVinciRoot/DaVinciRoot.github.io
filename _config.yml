@@ -1,4 +1,4 @@
-title: "DaVinci:wolf:Root"
+title: "DaVinci::Root"
 author: "Loduynht Buret M."
 description: "From the Shell to Real Life <b style=\"color: #f45;\">&lt;3</b>"
 permalink: /:title/
@@ -18,7 +18,7 @@ minimal: false             # use a dark header
 navigation:                # accepts {file, title, url, icon, sidebaricon}
   - {file: "index.html", title: "Security"}
   - {file: "index.html", title: "Networking"}
-  - {file: "README.md",  title: "About me", icon: }
+  - {file: "README.md",  title: "About me", icon: address-card}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "mailto:buretmarcano@gmail.com"}
