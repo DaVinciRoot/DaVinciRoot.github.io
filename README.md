@@ -4,96 +4,83 @@ permalink: "/about/"
 layout: page
 ---
 
-## Installation
+ Who Am I?
 
-Just fork this [repository](https://github.com/niklasbuschmann/contrast) and adjust the `_config.yml` to use with [Github Pages](https://pages.github.com/) and your page is done.
+Hello reader, My name is Mohammed or as known as Z0ldyck. I am a first-year student at Champlain College majoring in Cyber Security. I started learning about Network and Web Penetration Testing while I am in High School. Before High School, I had some experience with programming and Arduino. I will be sharing here everything that I learned related to Cyber Security. Most of my work will be based on Personal findings, HackTheBox, TryHackMe, Portswigger, and more.
 
-## Features
+    WORK EXPERIENCE:
 
- - supports dark mode on macOS Mojave
- - optional sidebar
- - MathJax support
- - no external ressources
- - included archive page
- - supports pagination
- - feed generation
- - responsive
- - syntax highlighting
- - supports comments via [disqus](https://disqus.com/) or [isso](http://posativ.org/isso/)
+    Synack Red Team member
+    Penetration Tester at Synack since (Jul,2021)(Part Time)
 
-## Based on
+    The Leahy Center
+    Research Assistant (May,2021 - Jul,2021)(Part Time)
 
-- [Hyde](https://github.com/poole/hyde)
-- [Minima](https://github.com/jekyll/minima)
-- [Lagrange](https://github.com/LeNPaul/Lagrange)
-- [Font Awesome](http://fontawesome.io/)
-- [KaTeX](https://katex.org/)
-- [Pygments](https://github.com/richleland/pygments-css)
+    Certifications:
 
-## Installation (jekyll-remote-theme method)
+    Certified Red Team Operator (CRTO)
+    zeropointsecurity
 
-You can use this theme with the `jekyll-remote-theme` plugin. Just create an empty repo, copy over the `index.html` file and add this to your `_config.yml`:
+    Offensive Security Certified Professional (OSCP)
+    OffensiveSecurity
 
-```yaml
-remote_theme: niklasbuschmann/contrast@v2.11
+    eLearnSecurity Certified Penetration Tester (eCPPTv2)
+    eLearnSecurity
 
-plugins:
-  - jekyll-remote-theme
-```
+    Web Application Penetration Testing ( eWPT )
+    eLearnSecurity
 
-Note: to enable icons you also need to copy over the `_data` folder.
+    eLearnSecurity Junior Penetration Tester (eJPT)
+    eLearnSecurity
 
-## Config
+    PentesterLab Badges
+    Blue - Intercept - Serialize - White - Yellow - Essential - PCAP - Unix
 
-Your `_config.yml` could for example look like this:
 
-```yaml
-title: "Blog Title"
-author: "Blog Author"
-description: "My personal blog about ... something"
-permalink: /:title/
-lang: "en"
-excerpt_separator: "\n\n\n"
-date_format: "%B %d, %Y"
 
-# Layout
+    PERSONAL PROJECTS:
 
-show_excerpts: true        # show article excerpts on the home page
-show_frame: true           # adds a gray frame to the site
-show_sidebar: false        # show a sidebar instead of the usual header
+    Zmuggler
+    A simple tool for finding HTTP Request Smuggling vulnerability in a website. It works by providing the target URL
 
-# Menu
+    ZRedirect
+    A simple tool for finding open redirect vulnerability in a website. It works by providing a file contains for example wayback urls
 
-navigation:                # accepts {file, title, url, icon, sidebaricon}
-  - {file: "index.html"}
-  - {file: "README.md"}
 
-external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
-  - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
-  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
-  - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
-comments:
-#  disqus_shortname: ""    # see https://disqus.com/
-#  isso_domain: ""         # see https://posativ.org/isso/
+    CVEs
 
-plugins:
- - jekyll-feed
+    CVE-2021-31760:
+    Webmin 1.973 - Exploiting a Cross-site request forgery (CSRF) attack to get a Remote Command Execution (RCE) through the Webmin's running process feature
+    CVE-2021-31760
 
-```
+    CVE-2021-31761:
+    Webmin 1.973 - Exploiting a Reflected Cross-Site Scripting (XSS) attack to get a Remote Command Execution (RCE) through the Webmin's running process feature
+    CVE-2021-31761
 
-## MathJax
+    CVE-2021-31762:
+    Webmin 1.973 - Exploiting a Cross-site request forgery (CSRF) attack to create a privileged user through the Webmin's add users feature then getting a reverse shell through the Webmin's running process feature
+    CVE-2021-31762
 
-Contrast comes preinstalled with a leightweight alternative to MathJax called [KaTeX](https://katex.org/). To display equations in a post simply set `mathjax: true` in the article's front matter.
 
-## License
 
-[public domain](http://unlicense.org/)
+    Achievements
 
-## Screenshots
+    HackTheBox Hall Of Fame:
+    HackTheBox
 
-![screenshot](https://user-images.githubusercontent.com/4943215/109431850-cd711780-7a08-11eb-8601-2763f2ee6bb4.png)
+    Webmin Hall Of Fame:
+    Webmin's security alerts
 
-![screenshot](https://user-images.githubusercontent.com/4943215/109431832-b6cac080-7a08-11eb-9c5e-a058680c23a1.png)
+    CyberPatriot:
+    First place ( 1st ) in Vermont’s CyberPatriot for three years in a row (2019 - 2021)
 
-![screenshot](https://user-images.githubusercontent.com/4943215/73125194-5f0b8b80-3fa4-11ea-805c-8387187503ad.png)
+    Contact
+
+    Mohammed's Linkedin account
+
+    Mohammed's Github account
+
+    Mohammed's Twitter account
+
+    Mohammed's YouTube channel
