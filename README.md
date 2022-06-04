@@ -4,11 +4,22 @@ permalink: "/about/"
 layout: page
 ---
 
- Who Am I?
 
-Hello reader, My name is Mohammed or as known as Z0ldyck. I am a first-year student at Champlain College majoring in Cyber Security. I started learning about Network and Web Penetration Testing while I am in High School. Before High School, I had some experience with programming and Arduino. I will be sharing here everything that I learned related to Cyber Security. Most of my work will be based on Personal findings, HackTheBox, TryHackMe, Portswigger, and more.
+👋 Hi, I’m @DaVinciRoot
 
-    WORK EXPERIENCE:
+
+
+
+- 👀 I’m interested in ...
+- 🌱 I’m currently learning ...
+- 💞️ I’m looking to collaborate on ...
+- 📫 How to reach me ...
+👋 Hola-Hi-Salut, I’m @DaVinciRoot en el mundo de las shells, mi nombre es Loduynht Buret, un pasionado de la tecnología del Networking 💻 y Seguridad ⚔️, informático egresado de un Cyber Security Associate Degree (BTS) | MSC Student en Transformación Digital con una especialidad en Big Data, Data Sciencie y Artificial Intelligence. Me gustaría trabajar con AI y ciberseguridad y Networking en algún momento en el futuro, algun proyecto personal o entre colegas quien sabe. :p
+
+I am a first-year student at Champlain College majoring in Cyber Security. I started learning about Network and Web Penetration Testing while I am in High School. Before High School, I had some experience with programming and Arduino. I will be sharing here everything that I learned related to Cyber Security. Most of my work will be based on Personal findings, HackTheBox, TryHackMe, Portswigger, and more.
+
+  
+  WORK EXPERIENCE:
 
     Synack Red Team member
     Penetration Tester at Synack since (Jul,2021)(Part Time)
