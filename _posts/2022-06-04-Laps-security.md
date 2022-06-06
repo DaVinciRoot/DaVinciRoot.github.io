@@ -5,8 +5,11 @@ layout: post
 
 
 
-<h2>Presentación</h2>
-Active es una excelente máquina para poner en práctica lo aprendido en el apartado de Hacking Active Directory del curso de TCM Security. Además de realizar enumeraciones a servicios a través del uso de Null sessions, la enumeración de servicios de puertos y servicios como 445/SMB, nos llevó a obtener credenciales y ejecutar un Kerberoasting attack.
+<h2>LAPS Local Administrator Password Solution </h2>
+Uno de los problemas con lo que lidia toda seguridad en una infraestructura es el manejo de credenciales para los distintos dispositivos de la red, credenciales de acceso para servidores, para la administracion de router, firewall y switches, soluciones como servidores de autenticacion remotos o Single Sign On, ayudan a la solucion de esto, pero hoy quiero hablarle de la solucion de Microsoft para el re-uso de credenciales por partes de los administradores.
+
+Antes de LAPS una practica comun entre administradores era utilizar la misma contrasena en cada computadora, con el objetivo de poder acceder in caso de que algun evento
+
 
 <h2>Reconocimiento</h2>
 En la fase de reconocimiento realizamos el siguiente network map, exportando el output en formato grep a un archivo llamado allports:
