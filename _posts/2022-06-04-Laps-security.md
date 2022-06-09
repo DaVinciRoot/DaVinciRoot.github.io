@@ -14,10 +14,12 @@ _Brute Forcing SID 500 in Active Directory [Mark Mo][Mark Mo]_
 
 Se instala un componente en cada computadora el cual genera cada cierto tiempo de manera _aleatoria_ contraseñas que son guardadas automáticamente en el Directorio Activo, adjuntadas como atributos de la computadora en cuestión y que solo el administrador puede ver el valor de este atributo, pero que si tienes los permisos es fácil de leer utilizando el cmdlet de PowerShell `Get-AdmPwdPassword`.
 
-La configuración de LAPS en el dominio trae consigo la cuestión de a quien se le debería otorgar permisos para poder actualizar contraseñas y demás, como a usuarios fuera del grupo de _admins_ del dominio, como grupo de helpdesk, asunto que puede salirse de las manos con el tiempo y terminar otorgando permisos a usuarios que no deberian. 
+La configuración de LAPS en el dominio trae consigo la cuestión de a quien se le debería otorgar permisos para poder leer las contraseñas de LAPS y demás, como a usuarios fuera del grupo de _admins_ del dominio, como grupo de helpdesk, asunto que puede salirse de las manos con el tiempo y terminar otorgando permisos a usuarios que no deberian. 
   
 *Que es justo lo que sucede en la máquina Timelapse de HTB...* una vez sea retirada traemos el WriteUp.
 
+Para la instalacion de LAPS en un ambito local recomiendo el siguiente How to de [Recast software][Recast software]
 
+[Recast software]: https://www.recastsoftware.com/es/resources/overview-of-microsoft-laps-local-administrator-password-solution/
 [Mark Mo]: https://medium.com/@markmotig/brute-forcing-sid-500-in-active-directory-c9eb7c01a8a6
 [Microsoft]: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0
