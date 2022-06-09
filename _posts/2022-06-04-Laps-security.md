@@ -16,9 +16,9 @@ Se instala un componente en cada computadora el cual genera cada cierto tiempo d
 
 La configuración de LAPS en el dominio trae consigo la cuestión de a quien se le debería otorgar permisos para poder leer las contraseñas de LAPS, y que podrían terminar siendo otorgados a usuarios fuera del grupo de _admins_ del dominio, como grupo de helpdesk. 
   
-*Que es justo lo que sucede en la máquina Timelapse de HTB...* una vez sea retirada traemos el WriteUp.
+*Que es justo lo que sucede en la máquina Timelapse de HTB...* una vez sea retirada traemos el WriteUp. 👏
 
-Para la instalacion de LAPS en un ambito local recomiendo el siguiente How to de [Recast software][Recast software]
+Para la instalación de LAPS en un ámbito local recomiendo el siguiente _How-to_ de [Recast software][Recast software]
 
 [Recast software]: https://www.recastsoftware.com/es/resources/overview-of-microsoft-laps-local-administrator-password-solution/
 [Mark Mo]: https://medium.com/@markmotig/brute-forcing-sid-500-in-active-directory-c9eb7c01a8a6
