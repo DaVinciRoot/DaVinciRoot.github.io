@@ -12,7 +12,7 @@ _Brute Forcing SID 500 in Active Directory [Mark Mo][Mark Mo]_
 
 <h2>¿Cómo funciona?</h2>
 
-Se instala un componente en cada computadora el cual genera cada cierto tiempo de manera _aleatoria_ contraseñas que son guardadas automáticamente en el Directorio Activo, adjuntadas como atributos de la computadora en cuestión y que solo el administrador puede ver el valor de este atributo, pero que si tienes los permisos es fácil de leer utilizando el cmdlet de PowerShell 'Get-AdmPwdPassword'.
+Se instala un componente en cada computadora el cual genera cada cierto tiempo de manera _aleatoria_ contraseñas que son guardadas automáticamente en el Directorio Activo, adjuntadas como atributos de la computadora en cuestión y que solo el administrador puede ver el valor de este atributo, pero que si tienes los permisos es fácil de leer utilizando el cmdlet de PowerShell `Get-AdmPwdPassword`.
 
 La configuración de LAPS en el dominio trae consigo la cuestión de a quien se le debería otorgar permisos para poder actualizar contraseñas y demás, como a usuarios fuera del grupo de _admins_ del dominio, como grupo de helpdesk, asunto que puede salirse de las manos con el tiempo y terminar otorgando permisos a usuarios que no deberian. 
   
