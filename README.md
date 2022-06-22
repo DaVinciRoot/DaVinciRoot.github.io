@@ -36,17 +36,14 @@ Director de poyecto: Rediseño de la infraestructura lógica y física interna d
 *Gestión de las solicitudes de asistencia técnica recibidas,
 *Mantenimiento de registros actualizados de gestión de activos.
 Director de poyecto: Reestructuración y organización del cableado del centro de datos interno.
-
-
-
-
-
-
-   
-
    
 
   Certifications:
+  
+ *CISCO CCNA 
+ *FORTINET Network Security Professional (NSE4)
+ *CompTIA Security+
+ *Microsoft Azure Fundamentals ( AZ-900)
 
     
   PERSONAL PROJECTS:
