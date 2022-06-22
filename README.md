@@ -50,8 +50,11 @@ Director de poyecto: Reestructuración y organización del cableado del centro d
 
 
   Contact
+  Email:buretmarcano@gmail.com
+  Phone: +33 07 66 00 96 82
 
   Linkedin account
+  Loduynht Buret | LinkedIn
 
   Github account
 
