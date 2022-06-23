@@ -20,6 +20,8 @@ La configuración de LAPS en el dominio trae consigo la cuestión de a quien se 
 
 Para la instalación de LAPS en un ámbito local recomiendo el siguiente _How-to_ de [Recast software][Recast software]
 
+🖱️_by:_ *@DaVinciRoot*
+
 [Recast software]: https://www.recastsoftware.com/es/resources/overview-of-microsoft-laps-local-administrator-password-solution/
 [Mark Mo]: https://medium.com/@markmotig/brute-forcing-sid-500-in-active-directory-c9eb7c01a8a6
 [Microsoft]: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0
