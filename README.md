@@ -16,7 +16,7 @@ Las publicaciones de este blog estan orientada a la preparación de certificacio
 
 !Un dia decidí hablar de lo que aprendía, así nació https://davinciroot.github.io/ !
 
-	```
+```
 {
   "Networking": "CCNA",
   "Security": "Security +",
@@ -24,6 +24,8 @@ Las publicaciones de este blog estan orientada a la preparación de certificacio
   "Cloud": "AZ-900"
 }
 ```  
+
+
 WORK EXPERIENCE:
   
 IT SUPPORT ENGINEER
@@ -48,6 +50,6 @@ NOC SUPPORT ENGINEER
 
   Github account
 
-  Twitter account
+  [Twitter account](https://twitter.com/l_buretm)
 
   [YouTube channel](https://www.youtube.com/channel/UCzh3ato79yNKR9nvoV16EMA)
