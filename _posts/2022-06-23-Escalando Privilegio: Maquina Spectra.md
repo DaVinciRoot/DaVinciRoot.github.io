@@ -17,7 +17,7 @@ Pues luego de correr algunos comando de reconocimiento a los fines de escalar pr
 sudo -l 
 {% endhighlight %}
 
-![ Spectra HTB Escalando Privilegio ](/assets/images/services.png)
+![ Spectra HTB Escalando Privilegio ](/assets/images/Image 3b.png)
 
 <h2>Initctl</h2>
 El poder ejecutar initctl se me asemejó bastante a los privilegios aprendidos en la máquina Return (_si, si también debo traer ese WriteUp📝)_ con el grupo Server Operator Group, y es que ambos cuentan con la capacidad de iniciar y detener servicios. Pues en la máquina Spectra, como pudimos ver en la imagen aterior el usuario cuenta con dicho privilegio para ejecutar tarea como root temporalmente, y ya de seguro al saber que dicho usuario cuenta con tal poder sabes el siguiente paso, veamos!.
