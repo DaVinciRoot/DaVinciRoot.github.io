@@ -3,12 +3,7 @@ title: "About"
 permalink: "/about/"
 layout: page
 ---
-
-
 👋 Hi, I’m @DaVinciRoot
-
-
-
 
 - 👀 I’m interested in ...
 - 🌱 I’m currently learning ...
