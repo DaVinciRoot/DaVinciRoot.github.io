@@ -5,8 +5,8 @@ layout: page
 ---
 👋 Hi, I’m @DaVinciRoot
 
-- 👀 I’m interested in Netwroking | Security ---> Security Engineer | Network Engineer or anything related..
-- 🌱 I’m currently learning Hacking for eJPT | OSCP | FortiAnalyzer | FortiManager certs.
+- 👀 I’m interested in Netwroking Security ---> Security Engineer  Network Engineer or anything related..
+- 🌱 I’m currently learning Hacking for eJPT, OSCP, FortiAnalyzer, FortiManager certs.
 - 💞️ I’m looking to collaborate on a Security team or Networking environment. 
 
 👋 Hola-Hi-Salut, I’m @DaVinciRoot en el mundo de las shells, mi nombre es Loduynht Buret Marcano 🇩🇴, un pasionado de la tecnología del Networking 💻 y Seguridad ⚔️, informático, egresado de un Cyber Security Associate Degree (BTS), MSC Student en Transformación Digital con una especialidad en Big Data, Data Sciencie y Artificial Intelligence. Me gustaría trabajar con AI, ciberseguridad y Networking en algún momento en el futuro, algun proyecto personal o entre colegas quien sabe. 👐
@@ -38,17 +38,18 @@ NOC SUPPORT ENGINEER
 - Gestión de las solicitudes de asistencia técnica recibidas,
 - Mantenimiento de registros actualizados de gestión de activos.
 - Director de proyecto: Reestructuración y organización del cableado del centro de datos interno.
-     
+
+
  - 📫 How to reach me ...
  
-  Email:buretmarcano@gmail.com
-  Phone: +33 07 66 00 96 82
+ Email:buretmarcano@gmail.com
+ Phone: +33 07 66 00 96 82
 
-  Linkedin account
-  Loduynht Buret | [LinkedIn](https://www.linkedin.com/in/loduynht-buret/)
+ Linkedin account
+ Loduynht Buret | [LinkedIn](https://www.linkedin.com/in/loduynht-buret/)
 
-  [Github account](https://github.com/DaVinciRoot)
+ [Github account](https://github.com/DaVinciRoot)
 
-  [Twitter account](https://twitter.com/l_buretm)
+ [Twitter account](https://twitter.com/l_buretm)
 
-  [YouTube channel](https://www.youtube.com/channel/UCzh3ato79yNKR9nvoV16EMA)
+ [YouTube channel](https://www.youtube.com/channel/UCzh3ato79yNKR9nvoV16EMA)
