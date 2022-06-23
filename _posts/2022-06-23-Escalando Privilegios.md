@@ -1,10 +1,8 @@
-
 ---
 title: "Spectra HTB Escalando Privilegio"
 layout: post
 ---
-![ Spectra HTB Escalando Privilegio ](/assets/images/Spectra.png)
-
+![Spectra HTB](/assets/images/Spectra.png)
 
 <h2>Presentación</h2>
 En esta ocasión no estaré presentando el writeUp de la máquina Spectra, más bien solo hablaré de la parte de escalación de privilegios, que me resulto muy interesante, y así haré con algunas que otras máquinas mientras en otro les traigo el writeUp, y ya estaremos presentado contenido de Networking y Firewall 🤯.
