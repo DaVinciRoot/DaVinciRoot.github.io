@@ -43,3 +43,12 @@ end script
 -[+] Listamos permisos de la /bin/bash `ls -la /bin/bash`
 
 ![ Spectra HTB Escalando Privilegio ](/assets/images/Image 4.png)
+
+```
+{
+  "firstName": "Loduynht",
+  "lastName": "Buret",
+  "correo": "buretmarcano@gmail.com"
+  "NickName": "Davinci"
+}
+```
