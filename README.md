@@ -16,34 +16,29 @@ Las publicaciones de este blog estan orientada a la preparación de certificacio
 
 !Un dia decidí hablar de lo que aprendía, así nació https://davinciroot.github.io/ !
 
+	```
+{
+  "Networking": "CCNA",
+  "Security": "Security +",
+  "Firewall": "Fortinet NS4"
+  "Cloud": "AZ-900"
+}
+```  
+WORK EXPERIENCE:
   
-  WORK EXPERIENCE:
-  
-  IT SUPPORT ENGINEER
-  SECURITY FORCE AGOSTO 2020 - DICIEMBRE 2021
-*Diseñar las configuraciones de la red, armonizando y asegurando los marcos de varios proveedores durante la instalación y después.
-*Operar y mantener los sistemas de seguridad y gestionar las soluciones de Identidad y Acceso.
-Director de poyecto: Rediseño de la infraestructura lógica y física interna de la empresa.
+IT SUPPORT ENGINEER
+ 
+- Diseñar las configuraciones de la red, armonizando y asegurando los marcos de varios proveedores durante   la instalación y después.
+- Operar y mantener los sistemas de seguridad y gestionar las soluciones de Identidad y Acceso.
+- Director de proyecto: Rediseño de la infraestructura lógica y física interna de la empresa.
 
-   NOC SUPPORT ENGINEER
-  NAP DEL CARIBE MARZO 2018 - JULIO 2020
-*Supervisión de los sistemas de alerta de incidentes.
-*Gestión de las solicitudes de asistencia técnica recibidas,
-*Mantenimiento de registros actualizados de gestión de activos.
-Director de poyecto: Reestructuración y organización del cableado del centro de datos interno.
-   
-
-  Certifications:
-  
- *CISCO CCNA 
- *FORTINET Network Security Professional (NSE4)
- *CompTIA Security+
- *Microsoft Azure Fundamentals ( AZ-900)
-
-    
-  PERSONAL PROJECTS:
-
-
+NOC SUPPORT ENGINEER
+ 
+- Supervisión de los sistemas de alerta de incidentes.
+- Gestión de las solicitudes de asistencia técnica recibidas,
+- Mantenimiento de registros actualizados de gestión de activos.
+- Director de proyecto: Reestructuración y organización del cableado del centro de datos interno.
+     
   Contact
   Email:buretmarcano@gmail.com
   Phone: +33 07 66 00 96 82
@@ -53,6 +48,6 @@ Director de poyecto: Reestructuración y organización del cableado del centro d
 
   Github account
 
- Twitter account
+  Twitter account
 
- YouTube channel
+  [YouTube channel](https://www.youtube.com/channel/UCzh3ato79yNKR9nvoV16EMA)
