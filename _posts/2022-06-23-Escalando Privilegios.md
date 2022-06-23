@@ -44,11 +44,4 @@ end script
 
 ![ Spectra HTB Escalando Privilegio ](/assets/images/Image 4.png)
 
-```
-{
-  "firstName": "Loduynht",
-  "lastName": "Buret",
-  "correo": "buretmarcano@gmail.com"
-  "NickName": "Davinci"
-}
-```
+🖱️_by:_ *@DaVinciRoot*
