@@ -3,7 +3,7 @@
 title: "Spectra HTB Escalando Privilegio"
 layout: post
 ---
-![ Spectra HTB Escalando Privilegio ](/assets/images/pwned.png)
+![ Spectra HTB Escalando Privilegio ](/assets/images/Spectra.png)
 
 
 <h2>Presentación</h2>
@@ -13,25 +13,21 @@ De todas formas cuento con un repositorio privado con notas al momento de hacer 
 
 <h2>Identificando permisos de Sudoers</h2>
 Pues luego de correr algunos comando de reconocimiento a los fines de escalar privilegios, al momento de ejecutar:
-{% highlight bash %} 
-sudo -l 
-{% endhighlight %}
+{% highlight bash %}  sudo -l  {% endhighlight %}
 
 ![ Spectra HTB Escalando Privilegio ](/assets/images/Image 3b.png)
 
 <h2>Initctl</h2>
 El poder ejecutar initctl se me asemejó bastante a los privilegios aprendidos en la máquina Return (_si, si también debo traer ese WriteUp📝)_ con el grupo Server Operator Group, y es que ambos cuentan con la capacidad de iniciar y detener servicios. Pues en la máquina Spectra, como pudimos ver en la imagen aterior el usuario cuenta con dicho privilegio para ejecutar tarea como root temporalmente, y ya de seguro al saber que dicho usuario cuenta con tal poder sabes el siguiente paso, veamos!.
 
-![ Spectra HTB Escalando Privilegio ](/assets/images/services.png)
+![ Spectra HTB Escalando Privilegio ](/assets/images/Image 2.png)
 
 <h2> ¿Qué hago ahora? </h2>
 Pues iniciariamos listando los servicios o *user-jobs* dentro de la carpeta "/etc/init" que es donde se encuentran todos los servicios que podemos controlar, e inmediatamente puedes ver al igual que cuando ejecutamos el comando para encontrar privilegios SUID, servicios no comunes 👍 de esos personalizados unicos en la maqquina en la que nos encontramos, si el test.conf, ¿qué es lo que se estaba probando? _lol_, ya que se encuentran detenido. 
 
-{% highlight bash %}
-sudo -u root /usr/bin/initctl
-{% endhighlight %}
+{% highlight bash %} sudo -u root /usr/bin/initctl {% endhighlight %}
 
-![ Spectra HTB Escalando Privilegio ](/assets/images/smbclient.png)
+![ Spectra HTB Escalando Privilegio ](/assets/images/Image 1.png)
 
 <h2>PoC</h2>
 Y si nosotros decidimos modificar dicho script y anadir la siguiente linea con la intencion de otorgar permisos SUID a la */bin/bash*.
@@ -42,10 +38,10 @@ script
 end script
 {% endhighlight %}
 
-- [+] Guardamos e iniciamos nuestro *test.conf*
-{% highlight bash %}
-sudo -u root /usr/bin/initctl start test
-{% endhighlight %}
+-[+] Guardamos e iniciamos nuestro *test.conf*
+ 
+{% highlight bash %} sudo -u root /usr/bin/initctl start test {% endhighlight %}
+
 -[+] Listamos permisos de la /bin/bash `ls -la /bin/bash`
 
 ![ Spectra HTB Escalando Privilegio ](/assets/images/ggp.png)
