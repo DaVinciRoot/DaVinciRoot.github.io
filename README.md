@@ -5,10 +5,9 @@ layout: page
 ---
 👋 Hi, I’m @DaVinciRoot
 
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
+- 👀 I’m interested in Netwroking | Security ---> Security Engineer | Network Engineer or anything related..
+- 🌱 I’m currently learning Hacking for eJPT | OSCP | FortiAnalyzer | FortiManager certs.
+- 💞️ I’m looking to collaborate on a Security team or Networking environment. 
 
 👋 Hola-Hi-Salut, I’m @DaVinciRoot en el mundo de las shells, mi nombre es Loduynht Buret Marcano 🇩🇴, un pasionado de la tecnología del Networking 💻 y Seguridad ⚔️, informático, egresado de un Cyber Security Associate Degree (BTS), MSC Student en Transformación Digital con una especialidad en Big Data, Data Sciencie y Artificial Intelligence. Me gustaría trabajar con AI, ciberseguridad y Networking en algún momento en el futuro, algun proyecto personal o entre colegas quien sabe. 👐
 
@@ -25,7 +24,6 @@ Las publicaciones de este blog estan orientada a la preparación de certificacio
 }
 ```  
 
-
 WORK EXPERIENCE:
   
 IT SUPPORT ENGINEER
@@ -41,14 +39,15 @@ NOC SUPPORT ENGINEER
 - Mantenimiento de registros actualizados de gestión de activos.
 - Director de proyecto: Reestructuración y organización del cableado del centro de datos interno.
      
-  Contact
+ - 📫 How to reach me ...
+ 
   Email:buretmarcano@gmail.com
   Phone: +33 07 66 00 96 82
 
   Linkedin account
-  Loduynht Buret | LinkedIn
+  Loduynht Buret | [LinkedIn](https://www.linkedin.com/in/loduynht-buret/)
 
-  Github account
+  [Github account](https://github.com/DaVinciRoot)
 
   [Twitter account](https://twitter.com/l_buretm)
 
