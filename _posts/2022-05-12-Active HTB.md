@@ -2,7 +2,7 @@
 title: "Active HTB WriteUp"
 layout: post
 ---
-![Ative HTB](/assets/images/pwned.png)
+![Ative HTB](/assets/images/Active 1.png)
 
 
 <h2>Presentación</h2>
