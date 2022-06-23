@@ -15,7 +15,7 @@ De todas formas cuento con un repositorio privado con notas al momento de hacer 
 Pues luego de correr algunos comando de reconocimiento a los fines de escalar privilegios, al momento de ejecutar:
 {% highlight bash %}  sudo -l  {% endhighlight %}
 
-![ Spectra HTB Escalando Privilegio ](/assets/images/Image 3b.png)
+![Spectra HTB Escalando Privilegio ](/assets/images/Image 3b.png)
 
 <h2>Initctl</h2>
 El poder ejecutar initctl se me asemejó bastante a los privilegios aprendidos en la máquina Return (_si, si también debo traer ese WriteUp📝)_ con el grupo Server Operator Group, y es que ambos cuentan con la capacidad de iniciar y detener servicios. Pues en la máquina Spectra, como pudimos ver en la imagen aterior el usuario cuenta con dicho privilegio para ejecutar tarea como root temporalmente, y ya de seguro al saber que dicho usuario cuenta con tal poder sabes el siguiente paso, veamos!.
@@ -44,7 +44,4 @@ end script
 
 -[+] Listamos permisos de la /bin/bash `ls -la /bin/bash`
 
-![ Spectra HTB Escalando Privilegio ](/assets/images/ggp.png)
-
-[Hacking-Article]: https://www.hackingarticles.in/credential-dumping-group-policy-preferences-gpp/
-[Microsoft]: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0
+![ Spectra HTB Escalando Privilegio ](/assets/images/Image 4.png)
