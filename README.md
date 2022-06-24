@@ -23,23 +23,7 @@ Las publicaciones de este blog estan orientada a la preparación de certificacio
   "Cloud": "AZ-900"
 }
 ```  
-
-WORK EXPERIENCE:
   
-IT SUPPORT ENGINEER
- 
-- Diseñar las configuraciones de la red, armonizando y asegurando los marcos de varios proveedores durante   la instalación y después.
-- Operar y mantener los sistemas de seguridad y gestionar las soluciones de Identidad y Acceso.
-- Director de proyecto: Rediseño de la infraestructura lógica y física interna de la empresa.
-
-NOC SUPPORT ENGINEER
- 
-- Supervisión de los sistemas de alerta de incidentes.
-- Gestión de las solicitudes de asistencia técnica recibidas,
-- Mantenimiento de registros actualizados de gestión de activos.
-- Director de proyecto: Reestructuración y organización del cableado del centro de datos interno.
-
-
  - 📫 How to reach me ...
  
  Email:buretmarcano@gmail.com
