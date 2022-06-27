@@ -30,8 +30,6 @@ Por la cantidad de puertos y servicios involucrados luce comno un Domain Control
 nmap -p53,80,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001,49664,49665,49666,49667,49671,49674,49675,49679,49682,49697,59724 -sCV 10.10.11.108 -oN targeted
 {% endhighlight %}
 
-![Ative HTB](/assets/images/services.png)
-
 <h2> Servicio SMB 445 </h2>
 Utilizando cramapexec smb y smbclient en la fase de reconocimiento, para saber frente a que estamos:
 
@@ -68,11 +66,11 @@ Tampoco funcionó el ataque de trasferencia de zona a dicho servicio.
 
 <h2>Servicio HTTP puerto 80</h2>
 
-En la session de settings dentro del panel web, encontramos:
+En la sessión de settings dentro del panel web, encontramos:
 
 ![Return HTB](/assets/images/Return 80.png)
 
-Que como mencione anteriormente es simplemente hacer que el url se dirija a nuestra direccion ip de atacante.
+Que como mencioné anteriormente es simplemente hacer que el server address se dirija a nuestra dirección ip de atacante.
 
 ![Return HTB](/assets/images/Return 81.png)
 
