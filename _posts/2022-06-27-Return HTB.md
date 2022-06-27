@@ -18,7 +18,10 @@ nmap -p- --min-rate 5000 10.10.11.108 -oG allports
 
 **Output** 
 [*] IP Address: 10.10.11.108
+
+{% highlight bash %}
 [*] Open ports: 53,80,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001,49664,49665,49666,49667,49671,49674,49675,49679,49682,49697,59724
+{% endhighlight %}
 
 <h2>Puertos y Servicios</h2>
 Por la cantidad de puertos y servicios involucrados luce comno un Domain Controller, puertos como 53, 88, DNS y Kerberos resepctivamente, servicos y puertos de RPC 135-139, 389 LDAP como mencionamos anteriormente. Ahora procederemos con ejecutar las opciones _sCV_ para reconocimiento básico de scripts para dichos puertos y servicios. 
@@ -29,12 +32,39 @@ nmap -p53,80,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001,49664,4966
 
 ![Ative HTB](/assets/images/services.png)
 
-<h2> SMB smbmap % smbclient </h2>
-A través de smbclient nos conectamos al directorio que tenemos acceso de lectura como nos indicó el comando, en este caso el directorio \Replication, luego de mapear dicho directorios con el comando smbmap que nos lista los permisos de los directorios, es decir si tenemos permisos de lectura y escritura:
+<h2> Servicio SMB 445 </h2>
+Utilizando cramapexec smb y smbclient en la fase de reconocimiento, para saber frente a que estamos:
 
 {% highlight bash %}
-smbmap -H 10.10.10.100
+SMB    10.10.11.108    445    PRINTER    [*] Windows 10.0 Build 17763 x64 (name:PRINTER) (domain:return.local) (signing:True) (SMBv1:False)
 {% endhighlight %}
+
+La máquina se llama Printer, al parecer un Windows 10.0, la cual pertene al dominio _return.local_, que añadiremos a nuestro _/etc/hosts_.
+
+```
+smbclient -L 10.10.11.108 -N                                        
+Anonymous login successful
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 10.10.11.108 failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
+```
+```
+smbmap -H 10.10.11.108 -u 'null'
+[!] Authentication error on 10.10.11.108
+```
+<h2> Servicio DNS 53 </h2>
+```
+nslookup 
+> server 10.10.11.108
+Default server: 10.10.11.108
+Address: 10.10.11.108#53
+> 10.10.11.108
+;; connection timed out; no servers could be reached
+```
+Tampoco funcionó el ataque de trasferencia de zona a dicho servicio.
 
 Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
 {% highlight bash %}
