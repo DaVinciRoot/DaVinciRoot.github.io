@@ -5,7 +5,7 @@ layout: post
 ![Spectra HTB](/assets/images/Spectra.png)
 
 <h2>Presentación</h2>
-En esta ocasión no estaré presentando el writeUp de la máquina Spectra, más bien solo hablaré de la parte de escalación de privilegios, que me resulto muy interesante, y así haré con algunas que otras máquinas mientras en otro les traigo el writeUp, y ya estaremos presentado contenido de Networking y Firewall 🤯.
+En esta ocasión no estaré presentando el writeUp de la máquina Spectra, más bien solo hablaré de la parte de escalación de privilegios, que me resultó muy interesante, y así haré con algunas que otras máquinas mientras en otro les traigo el writeUp, y ya estaremos presentado contenido de Networking y Firewall 🤯.
 
 De todas formas cuento con un repositorio privado con notas al momento de hacer la máquina, que puedo compartilo si me escriben a mi dirección de correo, pues sin más empecemos. 
 
@@ -28,7 +28,7 @@ Pues iniciariamos listando los servicios o *user-jobs* dentro de la carpeta "/et
 ![ Spectra HTB Escalando Privilegio ](/assets/images/Image 1.png)
 
 <h2>PoC</h2>
-Y si nosotros decidimos modificar dicho script y anadir la siguiente linea con la intencion de otorgar permisos SUID a la */bin/bash*.
+Y si nosotros decidimos modificar dicho script y añadir la siguiente linea con la intención de otorgar permisos SUID a la */bin/bash*.
 
 {% highlight bash %}
 script
