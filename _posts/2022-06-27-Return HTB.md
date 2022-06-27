@@ -6,7 +6,7 @@ layout: post
 
 
 <h2>Presentación</h2>
-Return forma parte del Hack The Box printer track, junto a máquinas como Driver y Antique. La primera parte de la instrucción es muy sencilla es simplemente redirigir la ip o el (_FQDN_), que se encuentra apuntando a un url interno en el panel web y obtener credenciales de LDAP mientras te mantienes en escuchas por el puerto 389, luego en la fase de reconocimiento para  escalar privilegios vemos posibilidades de hacerlo abusando de SetBackupPrivilige or SetLoadDriverPrivilege, pero eso lo traeremos más adelante, en esta ocasión escalaremos privilegios a través del Server Operator Group, que es un privilegio con lo que cuenta el usuario, del cual obtuvimos credenciales en primer lugar.
+Return forma parte del Hack The Box printer track, junto a máquinas como Driver y Antique. La primera parte de la instrucción es muy sencilla es simplemente redirigir la ip o el (_FQDN_), que se encuentra apuntando a un url interno en el panel web y obtener credenciales de LDAP mientras te mantienes en escuchas por el puerto 389, luego en la fase de reconocimiento para  escalar privilegios vemos posibilidades de hacerlo abusando de SetBackupPrivilige o SetLoadDriverPrivilege, pero eso lo traeremos más adelante, en esta ocasión escalaremos privilegios a través del Server Operator Group, que es un privilegio con lo que cuenta el usuario, del cual obtuvimos credenciales en primer lugar.
 
 <h2>Reconocimiento</h2>
 
@@ -78,48 +78,25 @@ Que como mencioné anteriormente es simplemente hacer que el server address se d
 
 ![Return HTB](/assets/images/Return 82.png)
 
-Luego de navegar por el directorio policies en busca de algo interesante y observando cada archivo hasta dar con el archivo groups.xml, que según el siguiente article de [Hacking-Article][Hacking-Article] es creado como consecuencia de la configuración de Group Policy Preference, en la que permiten a un administrador crear policies e instalar aplicaciones a través de Group Policy. Y sobre la cual se guarda una contraseña encriptada en formato _cpassword_, y de la cual Microsoft publicó la llave, como podemos observar en el siguiente artículo, [Microsoft][Microsoft], trasladamos el contenido de dicha carpeta a nuestra carpeta content y efectivamente, como se puede observar, obtenemos las credenciales del usuario SVC_TGS:
+Ya con estas credenciales y validando dicho usuarios con crackmapexec, y sabiendo que el puerto de Winrm esta abierto probamos una conexión.
 
-{% highlight bash %} <?xml version="1.0" encoding="utf-8"?>
-<Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}"><User clsid="{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}" name="active.htb\SVC_TGS" image="2" changed="2018-07-18 20:46:06" uid="{EF57DA28-5F69-4530-A59E-AAB58578219D}"><Properties action="U" newName="" fullName="" description="" cpassword="edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ" changeLogon="0" noChange="1" neverExpires="1" acctDisabled="0" userName="active.htb\SVC_TGS"/></User>
-</Groups> {% endhighlight %}
+![Return HTB](/assets/images/Return 83.png)
 
-Desencriptamos la contraseña con el uso de la herramienta gpp-decrypt:
+Desde aquí podemos obtener la user.txt flag. 
 
-![Ative HTB](/assets/images/ggp.png)
+<h2>Recon-PrivEsc </h2>
 
-también podemos hacer uso de el siguiente one-liner ya que conocemos la llave como mencionamos anteriormente:
-{% highlight bash %} 
-echo 'password_in_base64' | base64 -d | openssl enc -d -aes-256-cbc -K 4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b -iv 0000000000000000 
-{% endhighlight %}
+En un principio y sabiendo lo que involucra escalar privilegios con SetBackupPrivilige o SetLoadDriverPrivilege, me dije que entonces HTB hubiese etiquetado la maquina como medium al menos 💁‍♂️.
 
-<h2>Validación de credenciales</h2>
+![Return HTB](/assets/images/Return 84.png)
 
-Utilizamos la herramienta crackmapexec.py del poderoso _impacket_ para verificar la autenticidad de dicho usuario en el dominio **active.htb**, las cuales resultaron ser válida aunque no obtuvimos un (Pwned!) e intentamos verificar si podiamos loguearnos a traves de winrm, pero no fue así. 
+Por lo que volvi a ver e invetigar sobre el grupo que no conocia cuando hice el comando _net user_.
 
+![Return HTB](/assets/images/Return 85.png)
 
+E ivestigando sobre el mismo en la web oficial de Microsoft, encontré el siguiente artículo, [Microsoft][Microsoft], y que observando sus capacidades hace sentido que por defecto no tengan miembros, _lol_ cito: _By default, the group has no members. Members of the Server Operators group can sign in to a server interactively, create and delete network shared resources, **start and stop services**, back up and restore files, format the hard disk drive of the computer, and shut down the computer. This group cannot be renamed, deleted, or moved._
 
-**Nota** desde aqui podemos visualizar la flag del user, haciendo uso de smbclient y navegando entre directorios :)
-
-{% highlight bash %} smbclient //10.10.10.100/Users -U active.htb\\SVC_TGS%GPPstillStandingSt----8 {% endhighlight %}
-
-Pero teniendo un usuario y contraseña, se nos hace posible realizar un Kerberoasting attack, el cual TCM Security explica detallamente, que nos _dumpea_ los krbasrep5 hashes de las cuentas que tienen _Kerberos pre-authentication deshabilidata_ pero que explico con más detalle en el siguiente artículo, sobre mis apuntes. 
-Para esto utilizamos la herramienta _GetUserSPNs.py_, del poderoso impacket 🏅  
-
-{% highlight bash %} GetUserSPNs.py -request -dc-ip 10.10.10.100 active.htb/SVC_TGS {% endhighlight %}
-
-obtenemos el hash NTLMv2, enviamos a un archivo de texto y utilizamos John The Ripper, para obtener la credencial en texto plano.
-
-
-
-y ya obteniendo credenciales de administrador como nos muestra la primera línea del output del GetUserSPNs.py, y contraseña nos logueamos en el sistema. 
-
-
-
-Ya siendo Nt Authority\System, a buscar las flags.
-Que he decidido mostrar solo si existe algún paso más para llegar a ellas, no que tan solo sea navegar entre directorios como es este el caso, para poder verla. 
-
+ 
 🖱️_by:_ *@DaVinciRoot*
 
-[Hacking-Article]: https://www.hackingarticles.in/credential-dumping-group-policy-preferences-gpp/
-[Microsoft]: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0
+[Microsoft]: [https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#bkmk-serveroperators)
