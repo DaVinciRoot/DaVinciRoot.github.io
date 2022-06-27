@@ -28,7 +28,7 @@ Pues iniciariamos listando los servicios o *user-jobs* dentro de la carpeta "/et
 ![ Spectra HTB Escalando Privilegio ](/assets/images/Image 1.png)
 
 <h2>PoC</h2>
-Y si nosotros decidimos modificar dicho script y añadir la siguiente linea con la intención de otorgar permisos SUID a la */bin/bash*.
+Y si nosotros decidimos modificar dicho script y añadir la siguiente línea con la intención de otorgar permisos SUID a la */bin/bash*.
 
 {% highlight bash %}
 script
