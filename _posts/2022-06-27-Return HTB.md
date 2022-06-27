@@ -6,7 +6,7 @@ layout: post
 
 
 <h2>Presentación</h2>
-Return forma parte del Hack The Box printer track, junto a máquinas como Driver y Antique. La primera parte de la instrucción es muy sencilla es simplemente redirigir la ip o el (_FQDN_), que se encuentra apuntando a un url interno en el panel web y obtener credenciales de LDAP mientras te mantienes en escuchas por el puerto 389, luego en la fase de reconocimiento para  escalar privilegios vemos posibilidades de hacerlo abusando de SetBackupPrivilige o SetLoadDriverPrivilege, pero eso lo traeremos más adelante, en esta ocasión escalaremos privilegios a través del Server Operator Group, que es un privilegio con lo que cuenta el usuario, del cual obtuvimos credenciales en primer lugar.
+Return forma parte del Hack The Box printer track, junto a máquinas como Driver y Antique. La primera parte de la instrucción es muy sencilla es simplemente redirigir la ip o el (_FQDN_), que se encuentra apuntando a un url interno en el panel web y obtener credenciales de LDAP mientras te mantienes en escuchas por el puerto 389, luego en la fase de reconocimiento para  escalar privilegios vemos posibilidades de hacerlo abusando de SetBackupPrivilege o SetLoadDriverPrivilege, pero eso lo traeremos más adelante, en esta ocasión escalaremos privilegios a través del Server Operator Group, que es un privilegio con lo que cuenta el usuario, del cual obtuvimos credenciales en primer lugar.
 
 <h2>Reconocimiento</h2>
 
@@ -86,7 +86,7 @@ Desde aquí podemos obtener la user.txt flag.
 
 <h2>Recon-PrivEsc </h2>
 
-En un principio y sabiendo lo que involucra escalar privilegios con SetBackupPrivilige o SetLoadDriverPrivilege, me dije que entonces HTB hubiese etiquetado la maquina como medium al menos 💁‍♂️.
+En un principio y sabiendo lo que involucra escalar privilegios con SetBackupPrivilege o SetLoadDriverPrivilege, me dije que entonces HTB hubiese etiquetado la maquina como medium al menos 💁‍♂️.
 
 ![Return HTB](/assets/images/Return 84.png)
 
