@@ -2,7 +2,7 @@
 title: "Return HTB WriteUp"
 layout: post
 ---
-![Return HTB](/assets/images/Active 1.png)
+![Return HTB](/assets/images/Return 1.png)
 
 
 <h2>Presentación</h2>
