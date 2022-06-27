@@ -86,7 +86,7 @@ Desde aquí podemos obtener la user.txt flag.
 
 <h2>Recon-PrivEsc </h2>
 
-En un principio y sabiendo lo que involucra escalar privilegios con SetBackupPrivilege o SetLoadDriverPrivilege, me dije que entonces HTB hubiese etiquetado la maquina como medium al menos 💁‍♂️.
+En un principio y sabiendo lo que involucra escalar privilegios con SetBackupPrivilege o SetLoadDriverPrivilege, me dije que entonces HTB hubiese etiquetado la máquina como medium al menos 💁‍♂️.
 
 ![Return HTB](/assets/images/Return 84.png)
 
@@ -94,8 +94,19 @@ Por lo que volvi a ver e invetigar sobre el grupo que no conocia cuando hice el 
 
 ![Return HTB](/assets/images/Return 85.png)
 
-E ivestigando sobre el mismo en la web oficial de Microsoft, encontré el siguiente artículo, [Microsoft][Microsoft], y que observando sus capacidades hace sentido que por defecto no tengan miembros, _lol_ cito: _By default, the group has no members. Members of the Server Operators group can sign in to a server interactively, create and delete network shared resources, **start and stop services**, back up and restore files, format the hard disk drive of the computer, and shut down the computer. This group cannot be renamed, deleted, or moved._
+E ivestigando sobre el mismo en la web oficial de Microsoft, encontré el siguiente artículo, [Microsoft][Microsoft], y que observando sus capacidades hace sentido que por defecto no tengan miembros, _lol_ cito: _By default, the group has no members. Members of the Server Operators group can sign in to a server interactively, create and delete network shared resources, **start and stop services**, back up and restore files, format the hard disk drive of the computer, and shut down the computer. This group cannot be renamed, deleted, or moved_.
 
+Es decir que puedo listar, iniciar y detener servicios !? y si yo modifico el binpath, algo como sc config <service name> binPath= <binary path> de un servicio que haga una conexión a mi equipo de atacante.
+  
+<h2> PoC </h2>
+Probamos listandos los servicios.
+  
+![Return HTB](/assets/images/Return 86.png)
+  
+Luego vemos sobre cuales servicios en especificos tenemos dicha capacidad, sino que todo.
+  
+![Return HTB](/assets/images/Return 87.png) 
+  
  
 🖱️_by:_ *@DaVinciRoot*
 
