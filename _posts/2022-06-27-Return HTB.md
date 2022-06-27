@@ -66,12 +66,11 @@ Address: 10.10.11.108#53
 ```
 Tampoco funcionó el ataque de trasferencia de zona a dicho servicio.
 
-Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
-{% highlight bash %}
-smbclient //10.10.10.100/Replicacion -U ""%""
-{% endhighlight %}
+<h2>Servicio HTTP puerto 80</h2>
 
-![Ative HTB](/assets/images/smbclient.png)
+En la session de settings dentro del panel web, encontramos:
+
+![Return HTB](/assets/images/smbclient.png)
 
 Luego de navegar por el directorio policies en busca de algo interesante y observando cada archivo hasta dar con el archivo groups.xml, que según el siguiente article de [Hacking-Article][Hacking-Article] es creado como consecuencia de la configuración de Group Policy Preference, en la que permiten a un administrador crear policies e instalar aplicaciones a través de Group Policy. Y sobre la cual se guarda una contraseña encriptada en formato _cpassword_, y de la cual Microsoft publicó la llave, como podemos observar en el siguiente artículo, [Microsoft][Microsoft], trasladamos el contenido de dicha carpeta a nuestra carpeta content y efectivamente, como se puede observar, obtenemos las credenciales del usuario SVC_TGS:
 
