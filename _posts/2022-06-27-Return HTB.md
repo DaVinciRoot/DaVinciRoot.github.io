@@ -74,6 +74,10 @@ Que como mencioné anteriormente es simplemente hacer que el server address se d
 
 ![Return HTB](/assets/images/Return 81.png)
 
+**Nota** Nos ponemos en escuha por el puerto 389, siendo una maquina windows podemos utilizar rlwrap, damos clic en update y recibimos las siguientes credenciales.
+
+![Return HTB](/assets/images/Return 82.png)
+
 Luego de navegar por el directorio policies en busca de algo interesante y observando cada archivo hasta dar con el archivo groups.xml, que según el siguiente article de [Hacking-Article][Hacking-Article] es creado como consecuencia de la configuración de Group Policy Preference, en la que permiten a un administrador crear policies e instalar aplicaciones a través de Group Policy. Y sobre la cual se guarda una contraseña encriptada en formato _cpassword_, y de la cual Microsoft publicó la llave, como podemos observar en el siguiente artículo, [Microsoft][Microsoft], trasladamos el contenido de dicha carpeta a nuestra carpeta content y efectivamente, como se puede observar, obtenemos las credenciales del usuario SVC_TGS:
 
 {% highlight bash %} <?xml version="1.0" encoding="utf-8"?>
@@ -93,7 +97,7 @@ echo 'password_in_base64' | base64 -d | openssl enc -d -aes-256-cbc -K 4e9906e8f
 
 Utilizamos la herramienta crackmapexec.py del poderoso _impacket_ para verificar la autenticidad de dicho usuario en el dominio **active.htb**, las cuales resultaron ser válida aunque no obtuvimos un (Pwned!) e intentamos verificar si podiamos loguearnos a traves de winrm, pero no fue así. 
 
-![Ative HTB](/assets/images/gpp.png)
+
 
 **Nota** desde aqui podemos visualizar la flag del user, haciendo uso de smbclient y navegando entre directorios :)
 
@@ -106,11 +110,11 @@ Para esto utilizamos la herramienta _GetUserSPNs.py_, del poderoso impacket 🏅
 
 obtenemos el hash NTLMv2, enviamos a un archivo de texto y utilizamos John The Ripper, para obtener la credencial en texto plano.
 
-![Ative HTB](/assets/images/hash.png)
+
 
 y ya obteniendo credenciales de administrador como nos muestra la primera línea del output del GetUserSPNs.py, y contraseña nos logueamos en el sistema. 
 
-![Ative HTB](/assets/images/psexec.png)
+
 
 Ya siendo Nt Authority\System, a buscar las flags.
 Que he decidido mostrar solo si existe algún paso más para llegar a ellas, no que tan solo sea navegar entre directorios como es este el caso, para poder verla. 
