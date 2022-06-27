@@ -103,15 +103,15 @@ Probamos listandos los servicios.
   
 ![Return HTB](/assets/images/Return 86.png)
   
-Y si, si podemos listar servicios, luego anadimos nuestro nc.exe al escriorio del user a que tenemos capacidad de escritura.
+Y si, si podemos listar servicios, luego añadimos nuestro nc.exe al escriorio del user del que tenemos capacidad de escritura.
   
 ![Return HTB](/assets/images/Return 87.png) 
   
-En la siguiente imagen intentamos crear un servicio pero no fue posible, asi que modificamos uno existente en este caso VMTools, modificamos el binpath hacia nuestro nc que nos inicie una conexión, mientras estamos en escuchas, detenemos dichos servicios...
+En la siguiente imagen intentamos crear un servicio, pero no fue posible, así que modificamos uno existente en este caso VMTools, modificamos el binpath hacia nuestro nc.exe en el escritorio del user svc-printer que nos inicie una conexión, mientras estamos en escuchas, detenemos dicho servicios...
  
 ![Return HTB](/assets/images/Return 88.png) 
   
-y reiniciamos el mismo y así obtemos una shell como Administrator. 
+y reiniciamos el mismo y así obtemos una shell como nt authority\system. 
  
 ![Return HTB](/assets/images/Return 89.png)   
  
