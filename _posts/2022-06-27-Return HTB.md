@@ -96,17 +96,24 @@ Por lo que volvi a ver e invetigar sobre el grupo que no conocia cuando hice el 
 
 E ivestigando sobre el mismo en la web oficial de Microsoft, encontré el siguiente artículo, [Microsoft][Microsoft], y que observando sus capacidades hace sentido que por defecto no tengan miembros, _lol_ cito: _By default, the group has no members. Members of the Server Operators group can sign in to a server interactively, create and delete network shared resources, **start and stop services**, back up and restore files, format the hard disk drive of the computer, and shut down the computer. This group cannot be renamed, deleted, or moved_.
 
-Es decir que puedo listar, iniciar y detener servicios !? y si yo modifico el binpath, algo como sc config <service name> binPath= <binary path> de un servicio que haga una conexión a mi equipo de atacante.
+Es decir que puedo listar, iniciar y detener servicios !? y si yo modifico el binpath, algo como _sc.exe config <service name> binPath= <binary path>_ de un servicio que haga una conexión a mi equipo de atacante.
   
 <h2> PoC </h2>
 Probamos listandos los servicios.
   
 ![Return HTB](/assets/images/Return 86.png)
   
-Luego vemos sobre cuales servicios en especificos tenemos dicha capacidad, sino que todo.
+Y si, si podemos listar servicios, luego anadimos nuestro nc.exe al escriorio del user a que tenemos capacidad de escritura.
   
 ![Return HTB](/assets/images/Return 87.png) 
   
+En la siguiente imagen intentamos crear un servicio pero no fue posible, asi que modificamos uno existente en este caso VMTools, modificamos el binpath hacia nuestro nc que nos inicie una conexión, mientras estamos en escuchas, detenemos dichos servicios...
+ 
+![Return HTB](/assets/images/Return 88.png) 
+  
+y reiniciamos el mismo y así obtemos una shell como Administrator. 
+ 
+![Return HTB](/assets/images/Return 89.png)   
  
 🖱️_by:_ *@DaVinciRoot*
 
