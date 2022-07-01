@@ -74,7 +74,7 @@ Que como mencioné anteriormente es simplemente hacer que el server address se d
 
 ![Return HTB](/assets/images/Return 81.png)
 
-**Nota** Nos ponemos en escuha por el puerto 389, siendo una maquina windows podemos utilizar rlwrap, damos clic en update y recibimos las siguientes credenciales.
+**Nota** Nos ponemos en escuha por el puerto 389,podemos utilizar rlwrap,que nos da acceso inmediatamente al history, auto-complete y a poder utilizar las _arrow keys_, en caso de tenerla instalada, sino (_sudo apt install rlwrap_) damos clic en update y recibimos las siguientes credenciales.
 
 ![Return HTB](/assets/images/Return 82.png)
 
