@@ -7,6 +7,7 @@ layout: post
 
 <h2>Presentación</h2>
 Return forma parte del Hack The Box printer track, junto a máquinas como Driver y Antique. La primera parte de la instrucción es muy sencilla es simplemente redirigir la ip o el (_FQDN_), que se encuentra apuntando a un url interno en el panel web y obtener credenciales de LDAP mientras te mantienes en escuchas por el puerto 389, luego en la fase de reconocimiento para  escalar privilegios vemos posibilidades de hacerlo abusando de SetBackupPrivilege o SetLoadDriverPrivilege, pero eso lo traeremos más adelante, en esta ocasión escalaremos privilegios a través del Server Operator Group, que es un privilegio con lo que cuenta el usuario, del cual obtuvimos credenciales en primer lugar.
+ 
 
 <h2>Reconocimiento</h2>
 
@@ -64,13 +65,13 @@ Address: 10.10.11.108#53
 ```
 Tampoco funcionó el ataque de trasferencia de zona a dicho servicio.
 
-<h2>Servicio HTTP puerto 80</h2>
+<h2>Servicio HTTP puerto 80 Pass-Back Attack</h2>
 
 En la sessión de settings dentro del panel web, encontramos:
 
 ![Return HTB](/assets/images/Return 80.png)
 
-Que como mencioné anteriormente es simplemente hacer que el server address se dirija a nuestra dirección ip de atacante.
+Un **Pass-Back Attack** ocurre cuando forzamos un servicio en este caso la impresora desde el panel de setting, a que se conecte a nuestro equipo de atacante, esto al momento de clickear en _update_ envía la autenticación de LDAP a nuestra ip y/o dispositivo, interceptando nosotros dicha autenticación y poder ver credenciales en texto plano en este caso al realizarse a través del puerto 389 y no el 636 que es LDAP-Secure.
 
 ![Return HTB](/assets/images/Return 81.png)
 
