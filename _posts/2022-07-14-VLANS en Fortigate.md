@@ -38,8 +38,12 @@ Es simplemente utilizar los comandos:
 <h2> Asignar VLANs a diferentes interfaces </h2>
 
 Para esto volvemos al modo de configuracion de terminal(config)#
+```
+interface gigabitEthernet 0/1
+switchport mode acess
+switchport access vlan 101
 
-
+```
 
 Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
 {% highlight bash %}
