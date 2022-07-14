@@ -8,26 +8,28 @@ layout: post
 <h2>Presentación</h2>
 En esta ocasion estaremos configurando un Firewall Fortigate junto a un Switch de capa 3, diferentes Vlans, para la separacion logica del trafico, en otro post estaremos presentando que es una VLAN y para que se utilizan asi como sus beneficios. 
 
+PC1 pertenece a la VLAN-ID 101 Alumnos --> 172.21.0.0/24
+PC2 pertenece a la VLAN-ID 102 Docentes --> 172.22.0.0/24
+PC3 pertenece a la VLAN-ID 103 Administradores --> 172.23.0.0/24
+
+En Fortinet es posible utilizar la misma interfaz fisica para la creacion y trafico de diferentes VLANs, ya que pemite identificar el trafico con el VLAN-ID, y separar asi la interfaz fisica de manera logica, en una o mas interfaces logicas, a traves del tag frame 802.1q agregado que permite identificarlas (VLAN-ID). 
+
 <h2>Reconocimiento</h2>
-En la imagen tenemos un Fortigate de cara al internet (_Aunque la etiqueta LAN, se me quedo encima de la nube_ 😑) este fortigate haciendo la funcion de _edge firewall_ o firewall de perimetro se encarga del procesar el trafico que proviene de la red, en este caso de las diferentes VLANS _Docentes, Alumnos y Administradores_ estos nombres para las diferentes son intencionalmente seleccionados para presentar unos de los mayores beneficios de la utilizacion de VLANS, y es que crear VLANS nos permite crear diseños más flexibles que agrupen a los usuarios por departamento, o por grupos que trabajan en lugar de por su ubicación física, y que como medida de seguridad nos permita implementar la aplicación de diferentes políticas de seguridad por VLANs.
+En la imagen tenemos un Fortigate de cara al internet (_Aunque la etiqueta LAN, se me quedo encima de la nube_ 😑) este fortigate haciendo la funcion de _edge firewall_ o firewall de perimetro se encarga del procesar el trafico que proviene de la red interna hacia internet y vice-versa, en este caso de las diferentes VLANS _Docentes, Alumnos y Administradores_ estos nombres para las diferentes son intencionalmente seleccionados para presentar unos de los mayores beneficios de la utilizacion de VLANS, y es que crear VLANS nos permite crear diseños más flexibles que agrupen a los usuarios por departamento, o por grupos que trabajan en lugar de por su ubicación física, y que como medida de seguridad nos permita implementar la aplicación de diferentes políticas de seguridad por VLANs.
   
-{% highlight bash %}
-nmap -p- --min-rate 5000 10.10.10.100 -oG allports
-{% endhighlight %}
+<h2>VLANs</h2>
+Crear, nombrar y asignar vlans es un proceso sencillo, como te mostrare a continuacion, y ya en otro post ampliaremos sobre mas atributos configurables con relacion a las vlans.
 
-**Output** Ports: 53/open/tcp//domain/, 88/open/tcp//kerberos-sec/, 135/open/tcp//msrpc, 139/open/tcp//netbios-ssn, 389/open/tcp//ldap/, 445/open/tcp//microsoft-ds/, 464/open/tcp//kpasswd5/, 593/open/tcp...
+Lo primero que hay que hacer es entrar o habilitar el modo de configuracion, para eso ejecutamos los comandos: 
 
-<h2>Puertos y Servicios</h2>
-Con el fin de conocer un poco más de los servicios que se están ejecutando y lanzar una serie de script básico de reconocimiento para dichos puertos y servicios. 
+{% highlight bash %} enable {% endhighlight %}
+{% highlight bash %} configure terminal {% endhighlight %}
 
-{% highlight bash %}
-nmap -p53,88,135,139,445,464,593,636,3268,3269,5722,9389 -sCV -A -oN allservices 10.10.10.100
-{% endhighlight %}
+<h2> Creacion de VLAN Switch capa 3</h2>
 
-![Ative HTB](/assets/images/services.png)
+Una vez dentro del modo de configuracion que es posible identificar porque el terminar ahora nos anade (config)#.
+![Fortigate](/assets/images/all vlans.png)
 
-<h2> SMB smbmap % smbclient </h2>
-A través de smbclient nos conectamos al directorio que tenemos acceso de lectura como nos indicó el comando, en este caso el directorio \Replication, luego de mapear dicho directorios con el comando smbmap que nos lista los permisos de los directorios, es decir si tenemos permisos de lectura y escritura:
 
 {% highlight bash %}
 smbmap -H 10.10.10.100
@@ -38,7 +40,7 @@ Con smbclient haciendo uso de un null session accedimos a listar dicho directori
 smbclient //10.10.10.100/Replicacion -U ""%""
 {% endhighlight %}
 
-![Ative HTB](/assets/images/smbclient.png)
+
 
 Luego de navegar por el directorio policies en busca de algo interesante y observando cada archivo hasta dar con el archivo groups.xml, que según el siguiente article de [Hacking-Article][Hacking-Article] es creado como consecuencia de la configuración de Group Policy Preference, en la que permiten a un administrador crear policies e instalar aplicaciones a través de Group Policy. Y sobre la cual se guarda una contraseña encriptada en formato _cpassword_, y de la cual Microsoft publicó la llave, como podemos observar en el siguiente artículo, [Microsoft][Microsoft], trasladamos el contenido de dicha carpeta a nuestra carpeta content y efectivamente, como se puede observar, obtenemos las credenciales del usuario SVC_TGS:
 
