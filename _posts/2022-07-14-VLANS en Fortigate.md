@@ -45,7 +45,7 @@ switchport access vlan 101
 
 ```
 <h2>VLANs en Fortigate</h2>
-![Fortigate](/assets/images/interfaces.png)
+![Fortigate](/assets/images/interface.png)
 
 Dentro de la seccion de Network, nos vamos al apartado de interfaces.
 
