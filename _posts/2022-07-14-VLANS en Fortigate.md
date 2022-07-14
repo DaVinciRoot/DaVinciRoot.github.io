@@ -8,9 +8,9 @@ layout: post
 <h2>Presentación</h2>
 En esta ocasion estaremos configurando un Firewall Fortigate junto a un Switch de capa 3, diferentes Vlans, para la separacion logica del trafico, en otro post estaremos presentando que es una VLAN y para que se utilizan asi como sus beneficios. 
 
-PC1 pertenece a la VLAN-ID 101 Alumnos --> 172.21.0.0/24
-PC2 pertenece a la VLAN-ID 102 Docentes --> 172.22.0.0/24
-PC3 pertenece a la VLAN-ID 103 Administradores --> 172.23.0.0/24
+- PC1 pertenece a la VLAN-ID 101 Alumnos --> 172.21.0.0/24
+- PC2 pertenece a la VLAN-ID 102 Docentes --> 172.22.0.0/24
+- PC3 pertenece a la VLAN-ID 103 Administradores --> 172.23.0.0/24
 
 En Fortinet es posible utilizar la misma interfaz fisica para la creacion y trafico de diferentes VLANs, ya que pemite identificar el trafico con el VLAN-ID, y separar asi la interfaz fisica de manera logica, en una o mas interfaces logicas, a traves del tag frame 802.1q agregado que permite identificarlas (VLAN-ID). 
 
@@ -30,10 +30,16 @@ Lo primero que hay que hacer es entrar o habilitar el modo de configuracion, par
 Una vez dentro del modo de configuracion que es posible identificar porque el terminar ahora nos anade (config)#.
 ![Fortigate](/assets/images/all vlans.png)
 
+Es simplemente utilizar los comandos:
 
-{% highlight bash %}
-smbmap -H 10.10.10.100
-{% endhighlight %}
+{% highlight bash %} vlan 101 {% endhighlight %} Donde el 101 es simplemente el ID de las vlans que habiamos especficado al principio, y entramos al modo de configuracion de vlan (config-vlan)#
+{% highlight bash %} name docentes {% endhighlight %} Donde docentes es simplemente el nombre de las vlans.
+
+<h2> Asignar VLANs a diferentes interfaces </h2>
+
+Para esto volvemos al modo de configuracion de terminal(config)#
+
+
 
 Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
 {% highlight bash %}
