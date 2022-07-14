@@ -44,11 +44,19 @@ switchport mode acess
 switchport access vlan 101
 
 ```
+<h2>VLANs en Fortigate</h2>
+![Fortigate](/assets/images/interfaces.png)
 
-Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
-{% highlight bash %}
-smbclient //10.10.10.100/Replicacion -U ""%""
-{% endhighlight %}
+Dentro de la seccion de Network, nos vamos al apartado de interfaces.
+
+{% highlight bash %} [+] Create New {% endhighlight %}
+{% highlight bash %} Interface {% endhighlight %}
+
+![Fortigate](/assets/images/vlan102.png)
+
+Vamos a asignar la direccion ip de forma manual 172.22.0.1/24
+Habilitamos ping para hacer prueba inter-Vlans al final.
+
 
 
 
