@@ -6,7 +6,7 @@ layout: post
 
 
 <h2>Presentación</h2>
-Return forma parte del Hack The Box printer track, junto a máquinas como Driver y Antique. La primera parte de la instrucción es muy sencilla es simplemente redirigir la ip o el (_FQDN_), que se encuentra apuntando a un url interno en el panel web y obtener credenciales de LDAP mientras te mantienes en escuchas por el puerto 389, luego en la fase de reconocimiento para  escalar privilegios vemos posibilidades de hacerlo abusando de SetBackupPrivilege o SetLoadDriverPrivilege, pero eso lo traeremos más adelante, en esta ocasión escalaremos privilegios a través del Server Operator Group, que es un privilegio con lo que cuenta el usuario, del cual obtuvimos credenciales en primer lugar.
+Return forma parte del Hack The Box printer track, junto a máquinas como Driver y Antique. La primera parte de la instrucción es muy sencilla es simplemente redirigir la ip o el (_FQDN_), que se encuentra apuntando a un url interno en el panel web y obtener credenciales de LDAP mientras te mantienes en escuchas por el puerto 389, luego en la fase de reconocimiento para  escalar privilegios vemos posibilidades de hacerlo abusando de SetBackupPrivilege o SetLoadDriverPrivilege, pero eso lo traeremos más adelante, en esta ocasión escalaremos privilegios a través del Server Operator Group, que es un privilegio con el que cuenta el usuario, del cual obtuvimos credenciales en primer lugar.
  
 
 <h2>Reconocimiento</h2>
@@ -25,7 +25,7 @@ nmap -p- --min-rate 5000 10.10.11.108 -oG allports
 {% endhighlight %}
 
 <h2>Puertos y Servicios</h2>
-Por la cantidad de puertos y servicios involucrados luce comno un Domain Controller, puertos como 53, 88, DNS y Kerberos resepctivamente, servicos y puertos de RPC 135-139, 389 LDAP como mencionamos anteriormente. Ahora procederemos con ejecutar las opciones _sCV_ para reconocimiento básico de scripts para dichos puertos y servicios. 
+Por la cantidad de puertos y servicios involucrados luce comno un Domain Controller, puertos como 53, 88, DNS y Kerberos respectivamente, servicios y puertos de RPC 135-139, 389 LDAP como mencionamos anteriormente. Ahora procederemos con ejecutar las opciones _sCV_ para reconocimiento básico de scripts para dichos puertos y servicios. 
 
 {% highlight bash %}
 nmap -p53,80,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001,49664,49665,49666,49667,49671,49674,49675,49679,49682,49697,59724 -sCV 10.10.11.108 -oN targeted
@@ -63,7 +63,7 @@ Address: 10.10.11.108#53
 > 10.10.11.108
 ;; connection timed out; no servers could be reached
 ```
-Tampoco funcionó el ataque de trasferencia de zona a dicho servicio.
+Tampoco funcionó el ataque de transferencia de zona a dicho servicio.
 
 <h2>Servicio HTTP puerto 80 Pass-Back Attack</h2>
 
@@ -87,7 +87,7 @@ Desde aquí podemos obtener la user.txt flag.
 
 <h2>Recon-PrivEsc </h2>
 
-En un principio y sabiendo lo que involucra escalar privilegios con SetBackupPrivilege o SetLoadDriverPrivilege, me dije que entonces HTB hubiese etiquetado la máquina como medium al menos 💁‍♂️.
+En un principio y sabiendo lo que involucra escalar privilegios con SeBackupPrivilege o SeLoadDriverPrivilege, me dije que entonces HTB hubiese etiquetado la máquina como medium al menos 💁‍♂️.
 
 ![Return HTB](/assets/images/Return 84.png)
 
@@ -95,12 +95,12 @@ Por lo que volvi a ver e invetigar sobre el grupo que no conocia cuando hice el 
 
 ![Return HTB](/assets/images/Return 85.png)
 
-E ivestigando sobre el mismo en la web oficial de Microsoft, encontré el siguiente artículo, [Microsoft][Microsoft], y que observando sus capacidades hace sentido que por defecto no tengan miembros, _lol_ cito: _By default, the group has no members. Members of the Server Operators group can sign in to a server interactively, create and delete network shared resources, **start and stop services**, back up and restore files, format the hard disk drive of the computer, and shut down the computer. This group cannot be renamed, deleted, or moved_.
+E ivestigando sobre el mismo en la web oficial de Microsoft, encontré el siguiente artículo, [Microsoft][Microsoft], y que observando sus capacidades hace sentido que por defecto no tengan miembros, _lol_ :p cito: _By default, the group has no members. Members of the Server Operators group can sign in to a server interactively, create and delete network shared resources, **start and stop services**, back up and restore files, format the hard disk drive of the computer, and shut down the computer. This group cannot be renamed, deleted, or moved_.
 
-Es decir que puedo listar, iniciar y detener servicios !? y si yo modifico el binpath, algo como _sc.exe config <service name> binPath= <binary path>_ de un servicio que haga una conexión a mi equipo de atacante.
+Es decir que puedo listar, iniciar y detener servicios!? y si yo modifico el binpath, algo como _sc.exe config <service name> binPath= <binary path>_ de un servicio que haga una conexión a mi equipo de atacante.
   
 <h2> PoC </h2>
-Probamos listandos los servicios.
+Probamos listandos los servicios, con el comando services. 
   
 ![Return HTB](/assets/images/Return 86.png)
   
