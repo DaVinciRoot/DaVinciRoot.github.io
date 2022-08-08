@@ -65,7 +65,7 @@ Utilizamos la herramienta crackmapexec.py del poderoso _impacket_ para verificar
 
 {% highlight bash %} smbclient //10.10.10.100/Users -U active.htb\\SVC_TGS%GPPstillStandingSt----8 {% endhighlight %}
 
-Pero teniendo un usuario y contraseña, se nos hace posible realizar un Kerberoasting attack, el cual TCM Security explica detallamente, que nos _dumpea_ los krbasrep5 hashes de las cuentas que tienen _Kerberos pre-authentication deshabilidata_ pero que explico con más detalle en el siguiente artículo, sobre mis apuntes. 
+Pero teniendo un usuario y contraseña, se nos hace posible realizar un Kerberoasting attack, el cual TCM Security explica detallamente, que nos _dumpea_ los krbasrep5 hashes de las cuentas que tienen _UserAccountControl setting “Do not require Kerberos preauthentication” habilitada_ pero que explico con más detalle en el siguiente artículo, sobre mis apuntes. 
 Para esto utilizamos la herramienta _GetUserSPNs.py_, del poderoso impacket 🏅  
 
 {% highlight bash %} GetUserSPNs.py -request -dc-ip 10.10.10.100 active.htb/SVC_TGS {% endhighlight %}
