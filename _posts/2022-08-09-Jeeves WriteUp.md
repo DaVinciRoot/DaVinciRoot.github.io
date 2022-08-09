@@ -29,7 +29,7 @@ resolucion DNS y _-Pn_ para que asuma que todos los puertos estan up.
 Con el fin de conocer un poco más de los servicios que se están ejecutando y lanzar una serie de script básico de reconocimiento para dichos puertos y servicios. 
 
 {% highlight bash %}
-nmap -p80,135,445,5000 -sCV -A -oN allservices 10.10.10.100
+nmap -p80,135,445,50000 -sCV -A -oN allservices 10.10.10.100
 {% endhighlight %}
 
 ```
@@ -66,12 +66,23 @@ en un archivo *txt*.
 Podemos observar el OS que detecta nmap _windows_server_2008 r2_ que podemos comprobar una vez ganemos accesos con el comando _system info_.
 
 ![Ative HTB](/assets/images/services.png)
+<h2>Enum SMB puerto 445</h2>
 
-<h2> SMB smbmap % smbclient </h2>
-A través de smbclient nos conectamos al directorio que tenemos acceso de lectura como nos indicó el comando, en este caso el directorio \Replication, luego de mapear dicho directorios con el comando smbmap que nos lista los permisos de los directorios, es decir si tenemos permisos de lectura y escritura:
+Si intentamos conectarnos al servicio de SMB haciendo uso de un null session nos reporta _session setup failed: NT_STATUS_ACCESS_DENIED_; por lo que necesitariamos credenciales para listar y enumerar dicho servicio.
 
 {% highlight bash %}
-smbmap -H 10.10.10.100
+smbclient -L //10.10.10.63 -N 
+{% endhighlight %}
+
+<h2> Puertos 80 y 50000 </h2>
+
+Bien el servidor web en la  http://10.10.10.63/ nos muestra un busquedor como la siguiente imagen y que sin importar que introducimos nos envia a _/error.html_,
+que no es mas que una imagen de error ASP.NET !ay ASP.NET framework, por alli inicie viendo video de [Gavilanch2][Gavilanch2] en youtube!; ok seguimos..
+
+Mencionar que aplicar fuzzing a directorio tampoco arroja nada a diferencia del servicio en el puerto 50000.
+
+{% highlight bash %}
+gobuster dir -u http://10.10.10.63:50000/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x txt,php,html
 {% endhighlight %}
 
 Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
@@ -124,5 +135,5 @@ Que he decidido mostrar solo si existe algún paso más para llegar a ellas, no 
 
 🖱️_by:_ *@DaVinciRoot*
 
-[Hacking-Article]: https://www.hackingarticles.in/credential-dumping-group-policy-preferences-gpp/
+[Gavilanch2]: [https://www.hackingarticles.in/credential-dumping-group-policy-preferences-gpp/](https://www.youtube.com/watch?v=YzC-FYg66xA&list=PL0kIvpOlieSNWR3YPSjh9P2p43SFnNBlB)
 [Microsoft]: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0
