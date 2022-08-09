@@ -2,27 +2,68 @@
 title: "Jeeves HTB WriteUp"
 layout: post
 ---
-![Ative HTB](/assets/images/Active 1.png)
+![Ative HTB](/assets/images/Jeeves-1.png)
 
 
 <h2>Presentación</h2>
-Active es una excelente máquina para poner en práctica lo aprendido en el apartado de Hacking Active Directory del curso de TCM Security. Además de realizar enumeraciones a servicios a través del uso de Null sessions, la enumeración de servicios de puertos y servicios como 445/SMB, nos llevó a obtener credenciales y ejecutar un Kerberoasting attack.
+Jeeves es una máquina windows que corre un servicio de jenkin que es un servidor para automatizar tareas open sources, la primera vez que hice la máquina daba con 
+un archivo keepass que contenia claves, pero esta vez no fue necesaria para escalar privilegios, abusamos del privilegio SeImpersonatePrivilege para lograr convertirnos
+en administrador, y jugamos con JuicyPotato para explotar el mismo.
 
 <h2>Reconocimiento</h2>
-En la fase de reconocimiento realizamos el siguiente network map, exportando el output en formato grep a un archivo llamado allports:
+En la fase de reconocimiento como siempre realizamos la identificacion de puertos y servicios en dos pasos, en la primera parte exportando el output en formato grep a un archivo llamado allports:
   
 {% highlight bash %}
-nmap -p- --min-rate 5000 10.10.10.100 -oG allports
+nmap -p- --open -v -n --min-rate 5000 10.10.10.63 -oG allports
 {% endhighlight %}
 
-**Output** Ports: 53/open/tcp//domain/, 88/open/tcp//kerberos-sec/, 135/open/tcp//msrpc, 139/open/tcp//netbios-ssn, 389/open/tcp//ldap/, 445/open/tcp//microsoft-ds/, 464/open/tcp//kpasswd5/, 593/open/tcp...
+Este es un escaneo de todos los puertos _-p-_, _-v_ verbosity para que nos represente el output por pantalla a medida que descubre puertos abiertos, _-n_ para que no aplique 
+resolucion DNS y _-Pn_ para que asuma que todos los puertos estan up. 
+
+```
+[*] IP Address: 10.10.10.63
+[*] Open ports: 80,135,445,5000
+```
 
 <h2>Puertos y Servicios</h2>
 Con el fin de conocer un poco más de los servicios que se están ejecutando y lanzar una serie de script básico de reconocimiento para dichos puertos y servicios. 
 
 {% highlight bash %}
-nmap -p53,88,135,139,445,464,593,636,3268,3269,5722,9389 -sCV -A -oN allservices 10.10.10.100
+nmap -p80,135,445,5000 -sCV -A -oN allservices 10.10.10.100
 {% endhighlight %}
+
+```
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-11 10:53 EDT
+Nmap scan report for 10.10.10.63
+Host is up (0.49s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT      STATE SERVICE      VERSION
+80/tcp    open  http         Microsoft IIS httpd 10.0
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-title: Ask Jeeves
+|_http-server-header: Microsoft-IIS/10.0
+135/tcp   open  msrpc        Microsoft Windows RPC
+445/tcp   open  microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+50000/tcp open  http         Jetty 9.4.z-SNAPSHOT
+|_http-title: Error 404 Not Found
+|_http-server-header: Jetty(9.4.z-SNAPSHOT)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2008|10 (90%), FreeBSD 6.X (85%)
+OS CPE: cpe:/o:microsoft:windows_server_2008:r2 cpe:/o:microsoft:windows_10 cpe:/o:freebsd:freebsd:6.2
+Aggressive OS guesses: Microsoft Windows Server 2008 R2 (90%), Microsoft Windows 10 1511 - 1607 (85%), FreeBSD 6.2-RELEASE (85%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 2 hops
+Service Info: Host: JEEVES; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+```
+
+Aqui podemos identificar dos servicios http en diferente puertos, puerto 80 y 50000 respectivamente, tecnologia de Microsoft IIS y Jetty 9.4.x; es bueno identificar 
+estas versiones para luego buscar en exploit-DB o seachsploit vulnerabilidades asociadas a la misma, que quizas para nuestra version enumerada solo aparece un _Information Disclosure_
+en un archivo *txt*.
+
+Podemos observar el OS que detecta nmap _windows_server_2008 r2_ que podemos comprobar una vez ganemos accesos con el comando _system info_.
 
 ![Ative HTB](/assets/images/services.png)
 
