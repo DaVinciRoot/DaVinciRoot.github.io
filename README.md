@@ -21,7 +21,7 @@ Actualmente estudiando para el eJPT de eLearnSecurity y el NSE5 de Fortinet, pue
 {
   "Networking": "CCNA",
   "Security": "Security +",
-  "Firewall": "Fortinet NS4"
+  "Firewall": "Fortinet NSE4"
   "Cloud": "AZ-900"
 }
 ```  
@@ -30,7 +30,8 @@ Actualmente estudiando para el eJPT de eLearnSecurity y el NSE5 de Fortinet, pue
  
  Email:buretmarcano@gmail.com
  Phone: +33 07 66 00 96 82
- DR 🇩🇴 WhatsApp 829 921 4657
+
+DR 🇩🇴 WhatsApp 829 921 4657
 
  Linkedin account
  Loduynht Buret | [LinkedIn](https://www.linkedin.com/in/loduynht-buret/)
