@@ -91,12 +91,13 @@ gobuster dir -u http://10.10.10.63:50000/ -w /usr/share/wordlists/dirbuster/dire
 
 ![Jeeves HTB](/assets/images/Jeeves-3.png)
 
-Luego de navegar por el directorio policies en busca de algo interesante y observando cada archivo hasta dar con el archivo groups.xml, que según el siguiente article de [Hacking-Article][Hacking-Article] es creado como consecuencia de la configuración de Group Policy Preference, en la que permiten a un administrador crear policies e instalar aplicaciones a través de Group Policy. Y sobre la cual se guarda una contraseña encriptada en formato _cpassword_, y de la cual Microsoft publicó la llave, como podemos observar en el siguiente artículo, [Microsoft][Microsoft], trasladamos el contenido de dicha carpeta a nuestra carpeta content y efectivamente, como se puede observar, obtenemos las credenciales del usuario SVC_TGS:
+Y asi se ve nuestro Jenking!
 
-{% highlight bash %} <?xml version="1.0" encoding="utf-8"?>
-<Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}"><User clsid="{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}" name="active.htb\SVC_TGS" image="2" changed="2018-07-18 20:46:06" uid="{EF57DA28-5F69-4530-A59E-AAB58578219D}"><Properties action="U" newName="" fullName="" description="" cpassword="edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ" changeLogon="0" noChange="1" neverExpires="1" acctDisabled="0" userName="active.htb\SVC_TGS"/></User>
-</Groups> {% endhighlight %}
-![Uploading image.png…]()
+![Jeeves HTB](/assets/images/Jeeves-4.png)
+
+Como mencione en la introducion automatiza la creacion, prueba de software, y de ser asi permite la ejecucion de comandos, como podemos ver en la siguiente imagen, permite ejecutar windows batch, shell, groovy entre otros.
+
+En una consola groovy podemos ejecutar una reverse shell, mientras estamos en escucha podemos ejecutar el siguiente script de groovy, [Groovy-ReverseShell][Groovy-ReverseShell]
 
 Desencriptamos la contraseña con el uso de la herramienta gpp-decrypt:
 
@@ -137,3 +138,5 @@ Que he decidido mostrar solo si existe algún paso más para llegar a ellas, no 
 
 [Gavilanch2]: [https://www.hackingarticles.in/credential-dumping-group-policy-preferences-gpp/](https://www.youtube.com/watch?v=YzC-FYg66xA&list=PL0kIvpOlieSNWR3YPSjh9P2p43SFnNBlB)
 [ADS-Alternate Data Stream]: [https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0](https://www.securityartwork.es/2015/02/23/alternate-data-stream-ads-flujo-de-datos-alternativos-en-ntfs/)
+[Groovy-ReverseShell]: [https://gist.github.com/frohoff/fed1ffaab9b9beeb1c76)
+
