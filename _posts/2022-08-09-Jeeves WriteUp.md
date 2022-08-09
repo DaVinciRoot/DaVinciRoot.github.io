@@ -89,8 +89,6 @@ Ya mencionamos sobre Jetty 9.4.x; y el fuzzing arroja:
 gobuster dir -u http://10.10.10.63:50000/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x txt,php,html
 {% endhighlight %}
 
-![Jeeves HTB](/assets/images/Jeeves-3.png)
-
 Y asi se ve nuestro Jenking!
 
 ![Jeeves HTB](/assets/images/Jeeves-4.png)
@@ -99,44 +97,37 @@ Como mencione en la introducion automatiza la creacion, prueba de software, y de
 
 En una consola groovy podemos ejecutar una reverse shell, mientras estamos en escucha podemos ejecutar el siguiente script de groovy, [Groovy-ReverseShell][Groovy-ReverseShell]
 
-Desencriptamos la contraseña con el uso de la herramienta gpp-decrypt:
+![Jeeves HTB](/assets/images/Jeeves-5.png)
 
-![Ative HTB](/assets/images/ggp.png)
+Ejecutamos y aqui esta nuestra shell;
 
-también podemos hacer uso de el siguiente one-liner ya que conocemos la llave como mencionamos anteriormente:
-{% highlight bash %} 
-echo 'password_in_base64' | base64 -d | openssl enc -d -aes-256-cbc -K 4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b -iv 0000000000000000 
+![Jeeves HTB](/assets/images/Jeeves-6.png)
+
+<h2>Escalando Privilegios</h2>
+  
+![Jeeves HTB](/assets/images/Jeeves-7.png)
+ 
+Lo que suelo hacer antes de escalar privilegios o para iniciar, es moverme a un directorio con capacidad de escritura, cualquiera del listado de applocker bypass windows, en este caso _C:\Windows\Temp_ crear un directorio priv para comprobar capacidad de escritura y traemos el [Juicy-Potato][Juicy-Potato].
+ 
+En esta ocasion tambien agregue el nc.exe para enviarme una consola a otro puerto ya que el priv de SeImpersonatePriv ejecuta esta tarea como el administrador como se puede ver en la siguiente imagen:
+
+![Jeeves HTB](/assets/images/Jeeves-8.png)
+
+recibimos la conexion mientras estamos en escucha con el comando:
+{% highlight bash %}
+rlwrap nc -nlvp 44
 {% endhighlight %}
 
-<h2>Validación de credenciales</h2>
+<h2>Root Flag --> Alternate Data Stream</h2>
 
-Utilizamos la herramienta crackmapexec.py del poderoso _impacket_ para verificar la autenticidad de dicho usuario en el dominio **active.htb**, las cuales resultaron ser válida aunque no obtuvimos un (Pwned!) e intentamos verificar si podiamos loguearnos a traves de winrm, pero no fue así. 
+En la siguiente imagen observamos que al momento de intentar ver la flag, nos dice _look deeper_ :) 
 
-![Ative HTB](/assets/images/gpp.png)
+![Jeeves HTB](/assets/images/Jeeves-9.png)
 
-**Nota** desde aqui podemos visualizar la flag del user, haciendo uso de smbclient y navegando entre directorios :)
-
-{% highlight bash %} smbclient //10.10.10.100/Users -U active.htb\\SVC_TGS%GPPstillStandingSt----8 {% endhighlight %}
-
-Pero teniendo un usuario y contraseña, se nos hace posible realizar un Kerberoasting attack, el cual TCM Security explica detallamente, que nos _dumpea_ los krbasrep5 hashes de las cuentas que tienen _UserAccountControl setting “Do not require Kerberos preauthentication” habilitada_ pero que explico con más detalle en el siguiente artículo, sobre mis apuntes. 
-Para esto utilizamos la herramienta _GetUserSPNs.py_, del poderoso impacket 🏅  
-
-{% highlight bash %} GetUserSPNs.py -request -dc-ip 10.10.10.100 active.htb/SVC_TGS {% endhighlight %}
-
-obtenemos el hash NTLMv2, enviamos a un archivo de texto y utilizamos John The Ripper, para obtener la credencial en texto plano.
-
-![Ative HTB](/assets/images/hash.png)
-
-y ya obteniendo credenciales de administrador como nos muestra la primera línea del output del GetUserSPNs.py, y contraseña nos logueamos en el sistema. 
-
-![Ative HTB](/assets/images/psexec.png)
-
-Ya siendo Nt Authority\System, a buscar las flags.
-Que he decidido mostrar solo si existe algún paso más para llegar a ellas, no que tan solo sea navegar entre directorios como es este el caso, para poder verla. 
 
 🖱️_by:_ *@DaVinciRoot*
 
 [Gavilanch2]: [https://www.hackingarticles.in/credential-dumping-group-policy-preferences-gpp/](https://www.youtube.com/watch?v=YzC-FYg66xA&list=PL0kIvpOlieSNWR3YPSjh9P2p43SFnNBlB)
 [ADS-Alternate Data Stream]: [https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0](https://www.securityartwork.es/2015/02/23/alternate-data-stream-ads-flujo-de-datos-alternativos-en-ntfs/)
 [Groovy-ReverseShell]: [https://gist.github.com/frohoff/fed1ffaab9b9beeb1c76)
-
+[Juicy-Potato]: [https://github.com/ohpe/juicy-potato)
