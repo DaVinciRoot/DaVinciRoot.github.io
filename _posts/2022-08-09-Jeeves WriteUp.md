@@ -7,10 +7,10 @@ layout: post
 
 <h2>Presentación</h2>
 Jeeves es una máquina windows que corre un servicio de jenkin que es un servidor para automatizar tareas open sources, la primera vez que hice la máquina daba con 
-un archivo keepass que contenia claves, pero esta vez no fue necesaria para escalar privilegios, abusamos del privilegio SeImpersonatePrivilege para lograr convertirnos en administrador, y jugamos con JuicyPotato para explotar el mismo, y para ver las flag de root cuenta con un ADS (Alternate Data Stream) que esta caracteristica de sistema de ficheros NFTS permite incluir metainformación en un fichero. [ADS-Alternate Data Stream][ADS-Alternate Data Stream]
+un archivo keepass que contenía claves, pero esta vez no fue necesaria para escalar privilegios, abusamos del privilegio SeImpersonatePrivilege para lograr convertirnos en administrador, y jugamos con JuicyPotato para explotar el mismo, y para ver las flag de root cuenta con un ADS (Alternate Data Stream) que esta es una característica propia de sistema de ficheros NTFS permite incluir metainformación en un fichero. [ADS-Alternate Data Stream][ADS-Alternate Data Stream]
 
 <h2>Reconocimiento</h2>
-En la fase de reconocimiento como siempre realizamos la identificacion de puertos y servicios en dos pasos, en la primera parte exportando el output en formato grep a un archivo llamado allports:
+En la fase de reconocimiento como siempre realizamos la identificación de puertos y servicios en dos pasos, en la primera parte exportando el output en formato grep a un archivo llamado allports:
   
 {% highlight bash %}
 nmap -p- --open -v -n --min-rate 5000 10.10.10.63 -oG allports
@@ -58,16 +58,13 @@ Service Info: Host: JEEVES; OS: Windows; CPE: cpe:/o:microsoft:windows
 
 ```
 
-Aqui podemos identificar dos servicios http en diferente puertos, puerto 80 y 50000 respectivamente, tecnologia de Microsoft IIS y Jetty 9.4.x; es bueno identificar 
-estas versiones para luego buscar en exploit-DB o seachsploit vulnerabilidades asociadas a la misma, que quizas para nuestra version enumerada solo aparece un _Information Disclosure_
-en un archivo *txt*.
+Aquí podemos identificar dos servicios http en diferente puertos, puerto 80 y 50000 respectivamente, web server de Microsoft IIS y Jetty 9.4.x un Java Web Server; es bueno identificar estas versiones para luego buscar en exploit-DB o seachsploit vulnerabilidades asociadas a las mismas, que quizás para nuestra version enumerada solo aparece un _Information Disclosure_ en un archivo *txt*.
 
 Podemos observar el OS que detecta nmap _windows_server_2008 r2_ que podemos comprobar una vez ganemos accesos con el comando _system info_.
 
-![Jeeves HTB](/assets/images/services.png)
 <h2>Enum SMB puerto 445</h2>
 
-Si intentamos conectarnos al servicio de SMB haciendo uso de un null session nos reporta _session setup failed: NT_STATUS_ACCESS_DENIED_; por lo que necesitariamos credenciales para listar y enumerar dicho servicio.
+Si intentamos conectarnos al servicio de SMB haciendo uso de smbclient a través de un _null session_ para nos reporta _session setup failed: NT_STATUS_ACCESS_DENIED_; por lo que necesitaríamos credenciales para listar y enumerar dicho servicio.
 
 {% highlight bash %}
 smbclient -L //10.10.10.63 -N 
@@ -75,31 +72,32 @@ smbclient -L //10.10.10.63 -N
 
 <h2> Puertos 80 y 50000 </h2>
 
-Bien el servidor web en la  http://10.10.10.63/ nos muestra un busquedor como la siguiente imagen y que sin importar que introducimos nos envia a _/error.html_,
-que no es mas que una imagen de error ASP.NET !ay ASP.NET framework, por alli inicie viendo video de [Gavilanch2][Gavilanch2] en youtube!; ok seguimos..
+Bien el servidor web en la  http://10.10.10.63/ nos muestra un buscador como la siguiente imagen y que sin importar que introducimos nos envia a _/error.html_,
+que no es más que una imagen de error ASP.NET !ay ASP.NET framework, por allí inicie viendo video de [Gavilanch2][Gavilanch2] en youtube!; ok seguimos..
 
 ![Jeeves HTB](/assets/images/Jeeves-2.png)
 
 Mencionar que aplicar fuzzing a directorio tampoco arroja nada a diferencia del servicio en el puerto 50000.
 
 ![Jeeves HTB](/assets/images/Jeeves-3.png)
-Ya mencionamos sobre Jetty 9.4.x; y el fuzzing arroja:
+
+Ya hablamos sobre Jetty 9.4.x y posibles vulnerabilidades asociadas; y el fuzzing arroja:
 
 {% highlight bash %}
 gobuster dir -u http://10.10.10.63:50000/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x txt,php,html
 {% endhighlight %}
 
-Y asi se ve nuestro Jenking!
+Y así se ve nuestro Jenking!
 
 ![Jeeves HTB](/assets/images/Jeeves-4.png)
 
-Como mencione en la introducion automatiza la creacion, prueba de software, y de ser asi permite la ejecucion de comandos, como podemos ver en la siguiente imagen, permite ejecutar windows batch, shell, groovy entre otros.
+Como mencioné en la introdución automatiza la creación y prueba de software, y de ser asi permite la ejecución de comandos, como podemos ver en la siguiente imagen, permite ejecutar windows batch, shell, groovy entre otros, si investigamos un poco más. 
 
-En una consola groovy podemos ejecutar una reverse shell, mientras estamos en escucha podemos ejecutar el siguiente script de groovy, [Groovy-ReverseShell][Groovy-ReverseShell]
+En una consola groovy podemos ejecutar una reverse shell, mientras estamos en escucha, podemos ejecutar el siguiente script de groovy, [Groovy-ReverseShell][Groovy-ReverseShell], como se ve en la siguiente imagen. 
 
 ![Jeeves HTB](/assets/images/Jeeves-5.png)
 
-Ejecutamos y aqui esta nuestra shell;
+Ejecutamos y aquí esta nuestra shell;
 
 ![Jeeves HTB](/assets/images/Jeeves-6.png)
 
@@ -109,13 +107,13 @@ Ejecutamos y aqui esta nuestra shell;
  
 Lo que suelo hacer antes de escalar privilegios o para iniciar, es moverme a un directorio con capacidad de escritura, cualquiera del listado de applocker bypass windows, en este caso _C:\Windows\Temp_ crear un directorio priv para comprobar capacidad de escritura y traemos el [Juicy-Potato][Juicy-Potato].
  
-En esta ocasion tambien agregue el nc.exe para enviarme una consola a otro puerto ya que el priv de SeImpersonatePriv ejecuta esta tarea como el administrador como se puede ver en la siguiente imagen:
+En esta ocasión tambien agregue el nc.exe para enviarme una consola a otro puerto ya que el priv de SeImpersonatePriv ejecuta esta tarea como el administrador como se puede ver en la siguiente imagen:
 
 ![Jeeves HTB](/assets/images/Jeeves-8.png)
 
-recibimos la conexion mientras estamos en escucha con el comando:
+recibimos la conexión mientras estamos en escucha con el comando:
 {% highlight bash %}
-rlwrap nc -nlvp 44
+rlwrap nc -nlvp 4444
 {% endhighlight %}
 
 <h2>Root Flag --> Alternate Data Stream</h2>
@@ -124,6 +122,19 @@ En la siguiente imagen observamos que al momento de intentar ver la flag, nos di
 
 ![Jeeves HTB](/assets/images/Jeeves-9.png)
 
+Para listar dicha flag luego de listar deeper con el comando:
+
+{% highlight bash %}
+dir /R
+{% endhighlight %}
+
+la data en stream se puede leer si la rediregimos al comando more <
+
+{% highlight bash %}
+more < hm.txt:root.txt:$DATA
+{% endhighlight %}
+
+!As simple as that!
 
 🖱️_by:_ *@DaVinciRoot*
 
