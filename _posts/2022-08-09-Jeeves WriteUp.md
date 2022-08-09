@@ -2,13 +2,12 @@
 title: "Jeeves HTB WriteUp"
 layout: post
 ---
-![Ative HTB](/assets/images/Jeeves-1.png)
+![Jeeves HTB](/assets/images/Jeeves-1.png)
 
 
 <h2>Presentación</h2>
 Jeeves es una máquina windows que corre un servicio de jenkin que es un servidor para automatizar tareas open sources, la primera vez que hice la máquina daba con 
-un archivo keepass que contenia claves, pero esta vez no fue necesaria para escalar privilegios, abusamos del privilegio SeImpersonatePrivilege para lograr convertirnos
-en administrador, y jugamos con JuicyPotato para explotar el mismo.
+un archivo keepass que contenia claves, pero esta vez no fue necesaria para escalar privilegios, abusamos del privilegio SeImpersonatePrivilege para lograr convertirnos en administrador, y jugamos con JuicyPotato para explotar el mismo, y para ver las flag de root cuenta con un ADS (Alternate Data Stream) que esta caracteristica de sistema de ficheros NFTS permite incluir metainformación en un fichero. [ADS-Alternate Data Stream][ADS-Alternate Data Stream]
 
 <h2>Reconocimiento</h2>
 En la fase de reconocimiento como siempre realizamos la identificacion de puertos y servicios en dos pasos, en la primera parte exportando el output en formato grep a un archivo llamado allports:
@@ -65,7 +64,7 @@ en un archivo *txt*.
 
 Podemos observar el OS que detecta nmap _windows_server_2008 r2_ que podemos comprobar una vez ganemos accesos con el comando _system info_.
 
-![Ative HTB](/assets/images/services.png)
+![Jeeves HTB](/assets/images/services.png)
 <h2>Enum SMB puerto 445</h2>
 
 Si intentamos conectarnos al servicio de SMB haciendo uso de un null session nos reporta _session setup failed: NT_STATUS_ACCESS_DENIED_; por lo que necesitariamos credenciales para listar y enumerar dicho servicio.
@@ -79,24 +78,25 @@ smbclient -L //10.10.10.63 -N
 Bien el servidor web en la  http://10.10.10.63/ nos muestra un busquedor como la siguiente imagen y que sin importar que introducimos nos envia a _/error.html_,
 que no es mas que una imagen de error ASP.NET !ay ASP.NET framework, por alli inicie viendo video de [Gavilanch2][Gavilanch2] en youtube!; ok seguimos..
 
+![Jeeves HTB](/assets/images/Jeeves-2.png)
+
 Mencionar que aplicar fuzzing a directorio tampoco arroja nada a diferencia del servicio en el puerto 50000.
+
+![Jeeves HTB](/assets/images/Jeeves-3.png)
+Ya mencionamos sobre Jetty 9.4.x; y el fuzzing arroja:
 
 {% highlight bash %}
 gobuster dir -u http://10.10.10.63:50000/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x txt,php,html
 {% endhighlight %}
 
-Con smbclient haciendo uso de un null session accedimos a listar dicho directorio y su contenido.
-{% highlight bash %}
-smbclient //10.10.10.100/Replicacion -U ""%""
-{% endhighlight %}
-
-![Ative HTB](/assets/images/smbclient.png)
+![Jeeves HTB](/assets/images/Jeeves-3.png)
 
 Luego de navegar por el directorio policies en busca de algo interesante y observando cada archivo hasta dar con el archivo groups.xml, que según el siguiente article de [Hacking-Article][Hacking-Article] es creado como consecuencia de la configuración de Group Policy Preference, en la que permiten a un administrador crear policies e instalar aplicaciones a través de Group Policy. Y sobre la cual se guarda una contraseña encriptada en formato _cpassword_, y de la cual Microsoft publicó la llave, como podemos observar en el siguiente artículo, [Microsoft][Microsoft], trasladamos el contenido de dicha carpeta a nuestra carpeta content y efectivamente, como se puede observar, obtenemos las credenciales del usuario SVC_TGS:
 
 {% highlight bash %} <?xml version="1.0" encoding="utf-8"?>
 <Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}"><User clsid="{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}" name="active.htb\SVC_TGS" image="2" changed="2018-07-18 20:46:06" uid="{EF57DA28-5F69-4530-A59E-AAB58578219D}"><Properties action="U" newName="" fullName="" description="" cpassword="edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ" changeLogon="0" noChange="1" neverExpires="1" acctDisabled="0" userName="active.htb\SVC_TGS"/></User>
 </Groups> {% endhighlight %}
+![Uploading image.png…]()
 
 Desencriptamos la contraseña con el uso de la herramienta gpp-decrypt:
 
@@ -136,4 +136,4 @@ Que he decidido mostrar solo si existe algún paso más para llegar a ellas, no 
 🖱️_by:_ *@DaVinciRoot*
 
 [Gavilanch2]: [https://www.hackingarticles.in/credential-dumping-group-policy-preferences-gpp/](https://www.youtube.com/watch?v=YzC-FYg66xA&list=PL0kIvpOlieSNWR3YPSjh9P2p43SFnNBlB)
-[Microsoft]: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0
+[ADS-Alternate Data Stream]: [https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0](https://www.securityartwork.es/2015/02/23/alternate-data-stream-ads-flujo-de-datos-alternativos-en-ntfs/)
