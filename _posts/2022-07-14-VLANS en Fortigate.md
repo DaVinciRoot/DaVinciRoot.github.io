@@ -31,10 +31,10 @@ Lo primero que hay que hacer es entrar o habilitar el modo de configuración, pa
 Una vez dentro del modo de configuración que es posible identificar porque el terminar ahora nos añade (config)#.
 ![Fortigate](/assets/images/all vlans.png)
 
-Es simplemente utilizar los comandos:
+utilizamos los comandos:
 
-{% highlight bash %} vlan 101 {% endhighlight %} Donde el 101 es simplemente el ID de las vlans que habíamos especficado al principio, y entramos al modo de configuración de vlan (config-vlan)#
-{% highlight bash %} name docentes {% endhighlight %} Donde docentes es simplemente el nombre de las vlans.
+{% highlight bash %} vlan 101 {% endhighlight %} Donde el 101 es el número de ID de las vlans que habíamos especficado al principio, y entramos al modo de configuración de vlan (config-vlan)#
+{% highlight bash %} name docentes {% endhighlight %} Donde docentes es el nombre de la vlan que queremos asignar.
 
 <h2> Asignar VLANs a diferentes interfaces </h2>
 
