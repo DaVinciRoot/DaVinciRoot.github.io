@@ -57,8 +57,8 @@ Dentro de la sección de Network, nos vamos al apartado de interfaces.
 
 - En _Name_ seleccionamos un nombre identificativo a la VLAN que se conecta.
 - Asignamos el mismo _alias_ que el nombre de la vlan configurada en el switch esto para mejor identificación, no necesariamente deben coincidir.
-- Notar por favor el tipo de interface selecionado en este caso _Type:VLAN_.
-- Rol LAN en este caso.
+- Por favor notar, el tipo de interface selecionado en este caso _Type:VLAN_.
+- Para la opción _Role_ especificamos LAN en este caso.
 La interfaz en este caso es el port2 (interface 2), es la misma para cada vlan, ya que mencioné en Fortigate _"es posible utilizar la misma interfaz física para la creación y tráfico de diferentes VLAN, y tráfico hacia la interfaz fisica no es taggeado, pertenecen a la native vlan, tema de otro dia"_ aunque no permite separar el tráfico broadcast en _transparent mode_ ya que todas las vlan pertenecen al mismo _forward domain_ que son como broadcast domain, por lo que a VLANs distintas configuramos _forward-domain_ distintos, de la siguiente forma:
 
 {% highlight bash %} 
