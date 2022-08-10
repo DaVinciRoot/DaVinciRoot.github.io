@@ -65,6 +65,7 @@ La interfaz en este caso es el port2 (interface 2), es la misma para cada vlan, 
 config system interface
   edit VLAN102 VLAN_102
   set forward-domain 102
+ end
 {% endhighlight %}
 
 De esta forma tráfico en un interface es emitido solo a interfaces in el mismo _forward domain ID_.
@@ -87,7 +88,7 @@ Para esto nos vamos a _Policy & Obejct_ --> _Firewall policy_.
 
 ![Fortigate](/assets/images/policy.png)
 
-Asignamos un nombre, en este ejemplo solo lo mostraremos, suponiendo que las distintas reds necesitan tráfico entre sí, y no unidireccional como podríamos hacer con inter-VDOM, pero que tambien aplicaría para este caso por que, no!?, aqui a modo de demostracion aplicamos inter-vlan routing creando reglas en ambas direcciones, permitiendo solo comunicación ICMP, pero en ambiente reales deberíamos ser mas granulares a la hora de selecionar servicios. 
+Asignamos un nombre, en este ejemplo solo lo mostraremos, suponiendo que las distintas redes necesitan tráfico entre sí, aqui a modo de demostración aplicamos inter-vlan routing creando reglas en ambas direcciones, permitiendo solo comunicación ICMP, pero en ambiente reales deberíamos ser mas granulares a la hora de selecionar servicios. 
 
 Para esto luego de crear la primera regla, solo debemos de hacer clic derecho en el _interface pairview pane_ clone reverse, asignar un nombre y activar.
 
