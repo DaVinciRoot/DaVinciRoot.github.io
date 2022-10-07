@@ -2,7 +2,7 @@
 title: "Love HTB Escalando Privilegio"
 layout: post
 ---
-![Love HTB](/assets/images/Spectra.png)
+![Love HTB](/assets/images/love.png)
 
 <h2>Presentación</h2>
 En esta ocasión no estaré presentando otra escalada de privilegio, de windows y es abusando de: AlwaysInstallElevated, me habia tomado tiempo la preparacion de algunos writeUp, ya que estuve preparandome para el eJPT el cual logramos obtener, tesis, mudanza y otras movida como seguir con networking y firewall desde EVE-NG, pronto..  🤯.
