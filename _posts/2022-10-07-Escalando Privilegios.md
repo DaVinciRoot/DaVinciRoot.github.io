@@ -5,7 +5,7 @@ layout: post
 ![Love HTB](/assets/images/love.png)
 
 <h2>Presentación</h2>
-En esta ocasión no estaré presentando otra escalada de privilegio, de windows y es abusando de: AlwaysInstallElevated, me habia tomado tiempo la preparacion de algunos writeUp, ya que estuve preparandome para el eJPT el cual logramos obtener, tesis, mudanza y otras movidas como seguir con networking y firewall desde EVE-NG, pronto..  🤯.
+En esta ocasión estaré presentando otra escalada de privilegio en windows y es abusando de: AlwaysInstallElevated, me habia tomado tiempo la preparacion de algunos writeUp, ya que estuve preparandome para el eJPT el cual logramos obtener, tesis, mudanza y otras movidas como seguir con networking y firewall desde EVE-NG, pronto..  🤯.
 
 <h2>WinPEAS</h2>
 En la fase de busqueda de privilegias, WinPeas nos presenta el siguiente setting:
