@@ -24,13 +24,6 @@ Puedes hacer la solicitud al registro de manera manual con los siguientes comand
 
 el regultado de ambos query debe devolver el valor 1, es decir (value is 0x1).
 
-
-
-<h2>Initctl</h2>
-
-
-
-
 <h2> ¿Qué hago ahora? </h2>
  
 
