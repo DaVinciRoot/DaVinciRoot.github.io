@@ -18,8 +18,9 @@ Este key registry significa que cualquier usuario puede instalar un archivo .msi
 
 Puedes hacer la solicitud al registro de manera manual con los siguientes comandos:
 
-reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
-reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+> reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+
+> reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 
 el regultado de ambos query debe devolver el valor 1, es decir (value is 0x1).
 
