@@ -14,7 +14,7 @@ En la fase de busqueda de privilegias, WinPeas nos presenta el siguiente setting
 
 Este key registry significa que cualquier usuario puede instalar un archivo .msi con privilegios de NT Authority\System.
 
-<h2>Enumeracion Manual</h2>
+<h2>Enumeración Manual</h2>
 
 Puedes hacer la solicitud al registro de manera manual con los siguientes comandos:
 
