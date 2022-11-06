@@ -126,7 +126,7 @@ identificando al usuario svc-alfresco como un AS-REP Roastuser y crackeando el h
 
 ![Forest HTB](/assets/images/forest-9.png)
 
-Nos logueamos a traves de WINRM usando evil-winrm, ya que nos marca _Pwn3d_
+Nos logueamos a través de WINRM usando evil-winrm, ya que nos marca _Pwn3d_
 
 <h2>Whoami</h2>
 
@@ -153,7 +153,7 @@ si damos click en Análisis podemos listar información, como usuario kerberoast
 
 <h2>Identificando el path para escalar privilegios en BloodHound</h2>
 
-BloodHound utiliza graficos y se auxilia de un colector llamado SharpHound.ps1 que se encuentra en el mismo directorio. A nuestro fines damo click "Analysis", hago clic en "Find Shorter Paths to Domain Admin", y obtengo el siguiente gráfico:
+BloodHound utiliza gráficos y se auxilia de un colector llamado SharpHound.ps1 que se encuentra en el mismo directorio. A nuestro fines damo click "Analysis", hago clic en "Find Shorter Paths to Domain Admin", ruta más corta para convertinos en Administradores del Dominio y obtengo el siguiente gráfico:
 
 ![Forest HTB](/assets/images/forest-13.png)
 
