@@ -94,46 +94,33 @@ _smbclient_ logra un Anonymous login pero no lista ningun share o workgroup avai
 smbclient -L //10.10.10.161 -N 
 {% endhighlight %}
 
-<h2> Puertos 80 y 50000 </h2>
+<h2> Enum RPC </h2>
 
-Bien el servidor web en la  http://10.10.10.63/ nos muestra un buscador como la siguiente imagen y que sin importar que introducimos nos envia a _/error.html_,
-que no es más que una imagen de error ASP.NET !ay ASP.NET framework, por allí inicie viendo video de [Gavilanch2][Gavilanch2] en youtube!; ok seguimos..
+Haciendo uso de la herramienta _rpcclient_ a través de un null session probamos enumerar usuarios del dominio, para luego proceder a validarlo con kerburte. 
 
-![Jeeves HTB](/assets/images/Jeeves-2.png)
+![Forest HTB](/assets/images/forest-4.png)
 
-Mencionar que aplicar fuzzing a directorio tampoco arroja nada a diferencia del servicio en el puerto 50000.
+podemos crear un users list para aplicar un ataque de kerberos un ASREP-Roast.
 
-![Jeeves HTB](/assets/images/Jeeves-3.png)
+![Forest HTB](/assets/images/forest-5.png)
 
-Ya hablamos sobre Jetty 9.4.x y posibles vulnerabilidades asociadas; y el fuzzing arroja:
-
-{% highlight bash %}
-gobuster dir -u http://10.10.10.63:50000/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x txt,php,html
-{% endhighlight %}
-
-Y así se ve nuestro Jenking!
-
-![Jeeves HTB](/assets/images/Jeeves-4.png)
-
-Como mencioné en la introdución automatiza la creación y prueba de software, y de ser asi permite la ejecución de comandos, como podemos ver en la siguiente imagen, permite ejecutar windows batch, shell, groovy entre otros, si investigamos un poco más. 
-
-En una consola groovy podemos ejecutar una reverse shell, mientras estamos en escucha, podemos ejecutar el siguiente script de groovy, [Groovy-ReverseShell][Groovy-ReverseShell], como se ve en la siguiente imagen. 
-
-![Jeeves HTB](/assets/images/Jeeves-5.png)
-
-Ejecutamos y aquí esta nuestra shell;
-
-![Jeeves HTB](/assets/images/Jeeves-6.png)
-
-<h2>Escalando Privilegios</h2>
+<h2>Kerbrute userenum</h2>
   
-![Jeeves HTB](/assets/images/Jeeves-7.png)
- 
-Lo que suelo hacer antes de escalar privilegios o para iniciar, es moverme a un directorio con capacidad de escritura, cualquiera del listado de applocker bypass windows, en este caso _C:\Windows\Temp_ crear un directorio priv para comprobar capacidad de escritura y traemos el [Juicy-Potato][Juicy-Potato].
- 
-En esta ocasión tambien agregue el nc.exe para enviarme una consola a otro puerto ya que el priv de SeImpersonatePriv ejecuta esta tarea como el administrador como se puede ver en la siguiente imagen:
+Con la herramienta kerbrute podemos validar usuarios mediante kerberos, y nos aplica el ASREP-Roast solicitando un TGTs (Ticket Granting Ticket) para todos los usuarios.
 
-![Jeeves HTB](/assets/images/Jeeves-8.png)
+![Forest HTB](/assets/images/forest-6.png)
+
+Obtenemos 19 usuarios válidos del dominio, de los 32 listado a través de rpcclient.
+
+<h2>ASREP-Roast</h2>
+
+Este ataque lo realizamos en la máquina [Active][Active]; en el que se identifica usuarios que tienen la casilla de “Do not require Kerberos preauthentication” habilitada.
+
+![Forest HTB](/assets/images/forest-7.png)
+
+identificando al usuario svc-alfresco como asepreproast user y crackeando el hash con john, obtenemos una contraseña. 
+
+![Forest HTB](/assets/images/forest-8.png)
 
 recibimos la conexión mientras estamos en escucha con el comando:
 {% highlight bash %}
@@ -164,5 +151,5 @@ more < hm.txt:root.txt:$DATA
 
 
 [ BloodHoundAD ]: [https://github.com/BloodHoundAD)
-[Groovy-ReverseShell]: [https://gist.github.com/frohoff/fed1ffaab9b9beeb1c76)
+[Active]: [https://davinciroot.github.io/Active-HTB/)
 [Juicy-Potato]: [https://github.com/ohpe/juicy-potato)
