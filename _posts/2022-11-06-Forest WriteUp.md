@@ -131,9 +131,11 @@ Nos logueamos a traves de WINRM usando evil-winrm.
 <h2>Whoami</h2>
 
 En la fase de reconocimiento previo a la escalar privilegios, vemos que nuestro usuario forma parte del grupo _account operators_: [Account Operators][Account Operators]
-```
+
+{% highlight bash %}
 The Account Operators group grants limited account creation privileges to a user. Members of this group can create and modify most types of accounts, including accounts for users, Local groups, and Global groups. Group members can log in locally to domain controllers. 
-```
+{% endhighlight %}
+
 Si contamos con este privilegios podemos como bien expresa crear usuarios y agregarlo al grupo que deseemos, y aqui es donde entra BloodHound para identificar el path para escalar privilegios. 
 
 Para listar dicha flag luego de listar deeper con el comando:
