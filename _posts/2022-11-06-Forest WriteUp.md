@@ -130,6 +130,8 @@ Nos logueamos a traves de WINRM usando evil-winrm, ya que nos marca _Pwn3d_
 
 <h2>Whoami</h2>
 
+![Forest HTB](/assets/images/forest-10.png)
+
 En la fase de reconocimiento previo a la escalar privilegios, vemos que nuestro usuario forma parte del grupo _account operators_: [Account Operators][Account Operators]
 
 {% highlight bash %}
@@ -139,7 +141,7 @@ The Account Operators group grants limited account creation privileges to a user
 Si contamos con este privilegios podemos como bien expresa crear usuarios y agregarlo al grupo que deseemos, y aqui es donde entra BloodHound para identificar el path para escalar privilegios. 
 
 <h2>BloodHound</h2>
-Para resumir el WriteUp, dejo el enlace de configuración de BloodHound con [ John Hammond][John Hammond] y nos trasladamos al momento de subir el archivo _.zip_.
+Para resumir el WriteUp, dejo el enlace de configuración de BloodHound con [John Hammond][John Hammond] y nos trasladamos al momento de subir el archivo _.zip_.
 
 Lo primero al subir la información recolectada es marcar nuestro usuarios que han sido comprometidos.
 
@@ -151,8 +153,11 @@ si damos click en Análisis podemos listar información, como usuario kerberoast
 
 <h2>Identificando el path de BloodHound</h2>
 
+Para esto damo click "Queries", hago clic en "Find Shorter Paths to Domain Admin", y obtengo el siguiente gráfico:
+
 ![Forest HTB](/assets/images/forest-13.png)
 
+1- Nuestro usuario _svc-alfresco_ es miembro del grupo _Service Accounts_ que a su vez es miembro de _Privileged it accounts_ y miembros de _Account Operator_ que ya habiamos indentificado con el comando _whoami /all_
 
 !As simple as that!
 
@@ -162,4 +167,4 @@ si damos click en Análisis podemos listar información, como usuario kerberoast
 [ BloodHoundAD ]: [https://github.com/BloodHoundAD)
 [Active]: [https://davinciroot.github.io/Active-HTB/)
 [Account Operators]: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#account-operators)
-[ John Hammond]: [https://www.youtube.com/watch?v=yp8fw72oQvY)
+[John Hammond]: [https://www.youtube.com/watch?v=yp8fw72oQvY)
