@@ -6,7 +6,7 @@ layout: post
 
 
 <h2>Presentación</h2>
-Forest es una máquina windows que figura como Domain Controller, estaremos realizando enumeración basica de Directorio Activo, servicios como RPC,ataques a kerberos que ya hemos tocado en una que otras ocasiones, ademas  hacemos uso de unas de mis herramientas de pentesting favoritas [BloodHoundAD][BloodHoundAD] para la enumeración de entorno de Directorio Activos, excelente para Red&Blue Teamers, ruidosa por los logs que genera, eso si, abusamos del Account Operator Group y finalmente nos da la posibilidad de realizar un DCSync al momento de escalar privilegios. 
+Forest es una máquina windows que figura como Domain Controller, estaremos realizando enumeración basica de Directorio Activo, servicios como RPC,ataques a kerberos que ya hemos tocado en una que otras ocasiones, ademas  hacemos uso de unas de mis herramientas de pentesting favoritas [BloodHoundAD][BloodHoundAD] para la enumeración de entorno de Directorio Activos, excelente para Red&Blue Teamers, ruidosa por los logs que genera, eso si, abusamos del Account Operator Group y finalmente nos da la posibilidad de realizar un DCSync al momento de escalar privilegios, haciendo uso de secretsdump.py del poderoso impacket.  
 
 <h2>Reconocimiento</h2>
 En la fase de reconocimiento para la identificación de puertos y servicios en dos pasos, hacemos uso de la herramienta de RustScan que nos lista los puertos de manera rápida y que también podemos exportar el output en formato grep a un archivo llamado allports:
@@ -80,7 +80,7 @@ Haciendo uso de la herramienta _dig_ podemos enumerar el servicio DNS, como son:
 ![Forest HTB](/assets/images/forest-2.png)
 
 <h2>Enum SMB puerto 445</h2>
-Crackmapexec nos identifica el hostname de la maquina, la posible version de windows en uso, en este caso Windows Server 2016 Standard x64, el dominio y certificado smb firmados, que impiden ataques como el SMB relay haciendo uso del Responder, pero que presentaré muy pronto :). 
+Crackmapexec nos identifica el hostname de la maquina, la posible version de windows en uso, en este caso Windows Server 2016 Standard x64, el dominio y certificado smb firmados, que impiden ataques como el SMB relay haciendo uso del Responder, pero que presentaré muy pronto 📝. 
 
 Si intentamos conectarnos al servicio de SMB haciendo uso de smbmap a través de un _null session_ para nos reporta _Authentication error_; por lo que necesitaríamos credenciales para listar y enumerar dicho servicio.
 
@@ -151,21 +151,38 @@ si damos click en Análisis podemos listar información, como usuario kerberoast
 
 ![Forest HTB](/assets/images/forest-12.png)
 
-<h2>Identificando el path de BloodHound</h2>
+<h2>Identificando el path para escalar privilegios en BloodHound</h2>
 
-Para esto damo click "Queries", hago clic en "Find Shorter Paths to Domain Admin", y obtengo el siguiente gráfico:
+BloodHound utiliza graficos y se auxilia de un colector llamado SharpHound.ps1 que se encuentra en el mismo directorio. A nuestro fines damo click "Analysis", hago clic en "Find Shorter Paths to Domain Admin", y obtengo el siguiente gráfico:
 
 ![Forest HTB](/assets/images/forest-13.png)
 
 1- Nuestro usuario _svc-alfresco_ es miembro del grupo _Service Accounts_ que a su vez es miembro de _Privileged it accounts_ y miembros de _Account Operator_ que ya habiamos indentificado con el comando _whoami /all_
 
-2- Como miembro de _Account Operators_ y teneiendo _Generic All_, sobre el grupo de _Exchange Windows permisions_, podemos crear un usuario y agregar el mismo a dicho grupo, el cual tiene permisos de _WriteDacl_ sobre el dominio _htb.local_.
+2- Como miembro de _Account Operators_ y teneiendo _Generic All_, sobre el grupo de _Exchange Windows permissions_, podemos crear un usuario y agregar el mismo a dicho grupo, el cual tiene permisos de _WriteDacl_ sobre el dominio _htb.local_.
 
 ![Forest HTB](/assets/images/forest-14.png)
 ![Forest HTB](/assets/images/forest-15.png)
 
+Ya formando parte del grupo  _Exchange Windows permissions_ y teniendo el permiso de _WriteDacl_, podemos ver la info en el mismo BloodHound y el Abuse info,q ue nos explica como abusar de este privilegio, como no amarlo!? 💘
 
-!As simple as that!
+![Forest HTB](/assets/images/forest-16.png)
+![Forest HTB](/assets/images/forest-17.png)
+
+Mencionar que los comandos que presentan el abuse info, forman parte de [PowerView.ps1][PowerView.ps1] de PowerSploit in github. 
+
+Pues cargamos nuestra credenciales de usuarios y el PowerView.ps1 en memoria, para proceder a ejecutar el comando de abuse info, además de agregar el _-TargetIdentity_ en formato CN de ldap 'DC=htb,DC=local' y el _-PrincipalIdentity_ que es el usuario que he creado en este caso _loduynht_, en lugar de como ejemplifica el Abuse Info, como vemos en la siguiente secuencia de comandos.
+
+![Forest HTB](/assets/images/forest-18.png)
+
+Una vez otorgado dicho privilegio _Rigts DCSync_
+
+Con secretsdump:
+impacket-secretsdump htb.local\loduynht@10.10.10.161
+
+![Forest HTB](/assets/images/forest-19.png)
+
+Puedes ejecutar un Pass The Hash attack y utilizar psexec.py, aqui también tienes el HASH NTLM del usuario krbtgt para un Golden Ticket Attack.
 
 🖱️_by:_ *@DaVinciRoot*
 
@@ -174,3 +191,4 @@ Para esto damo click "Queries", hago clic en "Find Shorter Paths to Domain Admin
 [Active]: [https://davinciroot.github.io/Active-HTB/)
 [Account Operators]: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#account-operators)
 [John Hammond]: [https://www.youtube.com/watch?v=yp8fw72oQvY)
+[PowerView.ps1]: [https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
