@@ -2,7 +2,7 @@
 title: "Forest HTB WriteUp"
 layout: post
 ---
-![Forest HTB](/assets/images/Jeeves-1.png)
+![Forest HTB](/assets/images/forest-0.png)
 
 
 <h2>Presentación</h2>
