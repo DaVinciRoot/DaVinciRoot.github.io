@@ -126,7 +126,7 @@ identificando al usuario svc-alfresco como un AS-REP Roastuser y crackeando el h
 
 ![Forest HTB](/assets/images/forest-9.png)
 
-Nos logueamos a traves de WINRM usando evil-winrm.
+Nos logueamos a traves de WINRM usando evil-winrm, ya que nos marca _Pwn3d_
 
 <h2>Whoami</h2>
 
@@ -138,17 +138,21 @@ The Account Operators group grants limited account creation privileges to a user
 
 Si contamos con este privilegios podemos como bien expresa crear usuarios y agregarlo al grupo que deseemos, y aqui es donde entra BloodHound para identificar el path para escalar privilegios. 
 
-Para listar dicha flag luego de listar deeper con el comando:
+<h2>BloodHound</h2>
+Para resumir el WriteUp, dejo el enlace de configuración de BloodHound con [ John Hammond][John Hammond] y nos trasladamos al momento de subir el archivo _.zip_.
 
-{% highlight bash %}
-dir /R
-{% endhighlight %}
+Lo primero al subir la información recolectada es marcar nuestro usuarios que han sido comprometidos.
 
-la data en stream se puede leer si la rediregimos al comando more <
+![Forest HTB](/assets/images/forest-11.png)
 
-{% highlight bash %}
-more < hm.txt:root.txt:$DATA
-{% endhighlight %}
+si damos click en Análisis podemos listar información, como usuario kerberoastables...
+
+![Forest HTB](/assets/images/forest-12.png)
+
+<h2>Identificando el path de BloodHound</h2>
+
+![Forest HTB](/assets/images/forest-13.png)
+
 
 !As simple as that!
 
@@ -158,3 +162,4 @@ more < hm.txt:root.txt:$DATA
 [ BloodHoundAD ]: [https://github.com/BloodHoundAD)
 [Active]: [https://davinciroot.github.io/Active-HTB/)
 [Account Operators]: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#account-operators)
+[ John Hammond]: [https://www.youtube.com/watch?v=yp8fw72oQvY)
