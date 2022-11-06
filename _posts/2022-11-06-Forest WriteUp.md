@@ -172,7 +172,7 @@ Ya formando parte del grupo  _Exchange Windows permissions_ y teniendo el permis
 Mencionar que los comandos que presentan el abuse info, forman parte de [PowerView.ps1][PowerView.ps1] de PowerSploit in github. 
 
 Pues cargamos nuestra credenciales de usuarios y el PowerView.ps1 en memoria, para proceder a ejecutar el comando de abuse info, además de agregar el _-TargetIdentity_ en formato CN de ldap 'DC=htb,DC=local' y el _-PrincipalIdentity_ que es el usuario que he creado en este caso _loduynht_, en lugar de como ejemplifica el Abuse Info, como vemos en la siguiente secuencia de comandos.
-
+3-
 ![Forest HTB](/assets/images/forest-18.png)
 
 Una vez otorgado dicho privilegio _Rigts DCSync_
