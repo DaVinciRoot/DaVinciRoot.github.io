@@ -6,7 +6,7 @@ layout: post
 
 
 <h2>Presentación</h2>
-Forest es una máquina windows que figura como Domain Controller, estaremos realizando enumeración basica de Directorio Activo, servicios como RPC,ataques a kerberos que ya hemos tocado en una que otra máquina, ademas  hacemos uso de unas de mis herramientas de pentesting favoritas [ BloodHoundAD][ BloodHoundAD] para la enumeración de entorno de Directorio Activos, excelente para Red&Blue Teamers, ruidosa por los logs que genera, eso si, abusamos del Account Operator Group y finalmente nos da la posibilidad de realizar un DCSync al momento de escalar privilegios. 
+Forest es una máquina windows que figura como Domain Controller, estaremos realizando enumeración basica de Directorio Activo, servicios como RPC,ataques a kerberos que ya hemos tocado en una que otras ocasiones, ademas  hacemos uso de unas de mis herramientas de pentesting favoritas [BloodHoundAD][BloodHoundAD] para la enumeración de entorno de Directorio Activos, excelente para Red&Blue Teamers, ruidosa por los logs que genera, eso si, abusamos del Account Operator Group y finalmente nos da la posibilidad de realizar un DCSync al momento de escalar privilegios. 
 
 <h2>Reconocimiento</h2>
 En la fase de reconocimiento para la identificación de puertos y servicios en dos pasos, hacemos uso de la herramienta de RustScan que nos lista los puertos de manera rápida y que también podemos exportar el output en formato grep a un archivo llamado allports:
@@ -100,38 +100,41 @@ Haciendo uso de la herramienta _rpcclient_ a través de un null session probamos
 
 ![Forest HTB](/assets/images/forest-4.png)
 
-podemos crear un users list para aplicar un ataque de kerberos un ASREP-Roast.
+podemos crear un users list para aplicar un ataque de kerberos un ataque de tipo AS-REP Roasting.
 
 ![Forest HTB](/assets/images/forest-5.png)
 
 <h2>Kerbrute userenum</h2>
   
-Con la herramienta kerbrute podemos validar usuarios mediante kerberos, y nos aplica el ASREP-Roast solicitando un TGTs (Ticket Granting Ticket) para todos los usuarios.
+Con la herramienta kerbrute podemos validar usuarios mediante kerberos, y nos aplica el AS-REP Roasting solicitando un TGTs (Ticket Granting Ticket) para todos los usuarios.
 
 ![Forest HTB](/assets/images/forest-6.png)
 
 Obtenemos 19 usuarios válidos del dominio, de los 32 listado a través de rpcclient.
 
-<h2>ASREP-Roast</h2>
+<h2>AS-REP Roasting</h2>
 
 Este ataque lo realizamos en la máquina [Active][Active]; en el que se identifica usuarios que tienen la casilla de “Do not require Kerberos preauthentication” habilitada.
 
 ![Forest HTB](/assets/images/forest-7.png)
 
-identificando al usuario svc-alfresco como asepreproast user y crackeando el hash con john, obtenemos una contraseña. 
+identificando al usuario svc-alfresco como un AS-REP Roastuser y crackeando el hash con john, obtenemos una contraseña. Mencionar que haciendo uso de GetNPUsers nos da un hash tipo: _7500	Kerberos 5, etype 23, AS-REQ Pre-Auth_ según hash wiki a diferencia de kerbrute nos da _7500	Kerberos 5, etype 23, AS-REQ Pre-Auth_ que no me fue posible crackear. 
 
 ![Forest HTB](/assets/images/forest-8.png)
 
-recibimos la conexión mientras estamos en escucha con el comando:
-{% highlight bash %}
-rlwrap nc -nlvp 4444
-{% endhighlight %}
+<h2>Validación de usuario mediante SMB y WINRM</h2>
 
-<h2>Root Flag --> Alternate Data Stream</h2>
+![Forest HTB](/assets/images/forest-9.png)
 
-En la siguiente imagen observamos que al momento de intentar ver la flag, nos dice _look deeper_ :) 
+Nos logueamos a traves de WINRM usando evil-winrm.
 
-![Jeeves HTB](/assets/images/Jeeves-9.png)
+<h2>Whoami</h2>
+
+En la fase de reconocimiento previo a la escalar privilegios, vemos que nuestro usuario forma parte del grupo _account operators_: [Account Operators][Account Operators]
+```
+The Account Operators group grants limited account creation privileges to a user. Members of this group can create and modify most types of accounts, including accounts for users, Local groups, and Global groups. Group members can log in locally to domain controllers. 
+```
+Si contamos con este privilegios podemos como bien expresa crear usuarios y agregarlo al grupo que deseemos, y aqui es donde entra BloodHound para identificar el path para escalar privilegios. 
 
 Para listar dicha flag luego de listar deeper con el comando:
 
@@ -152,4 +155,4 @@ more < hm.txt:root.txt:$DATA
 
 [ BloodHoundAD ]: [https://github.com/BloodHoundAD)
 [Active]: [https://davinciroot.github.io/Active-HTB/)
-[Juicy-Potato]: [https://github.com/ohpe/juicy-potato)
+[Account Operators]: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#account-operators)
