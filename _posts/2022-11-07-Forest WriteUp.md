@@ -80,7 +80,7 @@ Haciendo uso de la herramienta _dig_ podemos enumerar el servicio DNS, como son:
 ![Forest HTB](/assets/images/forest-2.png)
 
 <h2>Enum SMB puerto 445</h2>
-Crackmapexec nos identifica el hostname de la maquina, la posible version de windows en uso, en este caso Windows Server 2016 Standard x64, el dominio y certificado smb firmados.
+Crackmapexec nos identifica el hostname de la maquina, la posible version de windows en uso, en este caso Windows Server 2016 Standard x64, el dominio y certificado smb firmados, que impiden ataques como el SMB relay haciendo uso del Responder, pero que presentaré muy pronto :). 
 
 Si intentamos conectarnos al servicio de SMB haciendo uso de smbmap a través de un _null session_ para nos reporta _Authentication error_; por lo que necesitaríamos credenciales para listar y enumerar dicho servicio.
 
