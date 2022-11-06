@@ -114,7 +114,7 @@ Obtenemos 19 usuarios válidos del dominio, de los 32 listado a través de rpccl
 
 <h2>AS-REP Roasting</h2>
 
-Este ataque lo realizamos en la máquina [Active][Active]; en el que se identifica usuarios que tienen la casilla de “Do not require Kerberos preauthentication” habilitada.
+Este ataque lo realizamos en la máquina [Active][Active], en el que se identifica usuarios que tienen la casilla de “Do not require Kerberos preauthentication” habilitada.
 
 ![Forest HTB](/assets/images/forest-7.png)
 
@@ -159,12 +159,18 @@ Para esto damo click "Queries", hago clic en "Find Shorter Paths to Domain Admin
 
 1- Nuestro usuario _svc-alfresco_ es miembro del grupo _Service Accounts_ que a su vez es miembro de _Privileged it accounts_ y miembros de _Account Operator_ que ya habiamos indentificado con el comando _whoami /all_
 
+2- Como miembro de _Account Operators_ y teneiendo _Generic All_, sobre el grupo de _Exchange Windows permisions_, podemos crear un usuario y agregar el mismo a dicho grupo, el cual tiene permisos de _WriteDacl_ sobre el dominio _htb.local_.
+
+![Forest HTB](/assets/images/forest-14.png)
+![Forest HTB](/assets/images/forest-15.png)
+
+
 !As simple as that!
 
 🖱️_by:_ *@DaVinciRoot*
 
 
-[ BloodHoundAD ]: [https://github.com/BloodHoundAD)
+[BloodHoundAD]: [https://github.com/BloodHoundAD)
 [Active]: [https://davinciroot.github.io/Active-HTB/)
 [Account Operators]: [https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#account-operators)
 [John Hammond]: [https://www.youtube.com/watch?v=yp8fw72oQvY)
