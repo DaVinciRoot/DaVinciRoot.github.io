@@ -6,7 +6,7 @@ layout: post
 
 
 <h2>Presentación</h2>
-Forest es una máquina windows que figura como Domain Controller, estaremos realizando enumeración basica de Directorio Activo, servicios como RPC,ataques a kerberos que ya hemos tocado en una que otras ocasiones, ademas  hacemos uso de unas de mis herramientas de pentesting favoritas [BloodHoundAD][BloodHoundAD] para la enumeración de entorno de Directorio Activos, excelente para Red&Blue Teamers, ruidosa por los logs que genera, eso si, abusamos del Account Operator Group y finalmente nos da la posibilidad de realizar un DCSync al momento de escalar privilegios, haciendo uso de secretsdump.py del poderoso impacket.  
+Forest es una máquina windows que figura como Domain Controller, estaremos realizando enumeración basica de Directorio Activo, servicios como RPC, ataques a kerberos que ya hemos tocado en una que otras ocasiones, además  hacemos uso de unas de mis herramientas de pentesting favoritas [BloodHoundAD][BloodHoundAD] para la enumeración de entorno de Directorio Activos, excelente para Red&Blue Teamers, ruidosa por los _logs_ que genera, eso si!, abusamos del Account Operator Group y finalmente realizamos un ataque de DCSync al momento de escalar privilegios, haciendo uso de secretsdump.py del poderoso impacket.  
 
 <h2>Reconocimiento</h2>
 En la fase de reconocimiento para la identificación de puertos y servicios en dos pasos, hacemos uso de la herramienta de RustScan que nos lista los puertos de manera rápida y que también podemos exportar el output en formato grep a un archivo llamado allports:
